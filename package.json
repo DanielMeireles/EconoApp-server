@@ -1,0 +1,8 @@
+{
+  "name": "econoapp-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/DanielMeireles/EconoApp-server",
+  "author": "DanielMeireles <daniel.meireles@outlook.com>",
+  "license": "MIT"
+}
