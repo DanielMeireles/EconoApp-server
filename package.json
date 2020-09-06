@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/DanielMeireles/EconoApp-server",
   "author": "DanielMeireles <daniel.meireles@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
 }
