@@ -102,3 +102,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Visual Studio Code
+.vscode/
+
+# Builds
+build
+
+# Temp folder
+tmp/*
+tmp/uploads/*
+!tmp/uploads
+!tmp/uploads/.gitkeep
