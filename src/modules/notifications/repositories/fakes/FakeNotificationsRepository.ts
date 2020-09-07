@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
 
 import Notification from '@modules/notifications/infra/typeorm/schemas/Notification';
-import INotificationsRepository from '@modules/notifications/repositories/models/INotificationsRepository';
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import ICreateNotificationDTO from '@modules/notifications/dtos/ICreateNotificationDTO';
 
 class NotificationsRepository implements INotificationsRepository {
