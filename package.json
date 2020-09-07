@@ -57,6 +57,7 @@
     "multer": "^1.4.2",
     "nodemailer": "^6.4.11",
     "ora": "^5.0.0",
+    "pg": "^8.3.3",
     "rate-limiter-flexible": "^2.1.10",
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",

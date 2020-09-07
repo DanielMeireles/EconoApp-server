@@ -37,7 +37,7 @@ const prodConfig = [
     name: 'default',
     type: 'postgres',
     host: process.env.POSTGRES_HOST,
-    port: POSTGRES_PORT,
+    port: process.env.POSTGRES_PORT,
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASS,
     database: process.env.POSTGRES_NAME,
@@ -55,7 +55,7 @@ const prodConfig = [
     name: 'mongo',
     type: 'mongodb',
     host: process.env.MONGO_HOST,
-    port: MONGO_PORT,
+    port: process.env.MONGO_PORT,
     database: process.env.MONGO_NAME,
     useUnifiedTopology: true,
     entities: [
