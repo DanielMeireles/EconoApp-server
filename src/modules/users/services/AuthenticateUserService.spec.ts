@@ -4,13 +4,12 @@ import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHa
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let fakeHashProvider: FakeHashProvider;
 let authenticateUser: AuthenticateUserService;
 
 describe('AuthenticateUser', () => {
   beforeEach(() => {
+    const fakeHashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
-    fakeHashProvider = new FakeHashProvider();
 
     authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
