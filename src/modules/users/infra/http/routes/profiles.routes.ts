@@ -10,6 +10,7 @@ const profileController = new ProfileController();
 profilesRouter.use(ensureAuthenticated);
 
 profilesRouter.get('/', profileController.show);
+
 profilesRouter.put(
   '/',
   celebrate({
