@@ -12,8 +12,8 @@ interface IUploadConfig {
   config: {
     disk: unknown;
     aws: {
-      bucket?: string;
-      region?: string;
+      bucket: string;
+      region: string;
     };
   };
 }
