@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  econoapp_postgres:
+    image: postgres
+    container_name: econoapp_postgres
+    environment:
+      POSTGRES_USER: econoapp
+      POSTGRES_PASSWORD: econoapp
+      POSTGRES_DB: econoapp
+    ports:
+      - 5432:5432
+  econoapp_mongo:
+    image: mongo
+    container_name: econoapp_mongo
+    ports:
+      - 27017:27017
+  econoapp_redis:
+    image: redis:alpine
+    container_name: econoapp_redis
+    ports:
+      - 6379:6379
