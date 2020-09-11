@@ -24,7 +24,7 @@ class Product {
   image: string;
 
   @Expose({ name: 'image_url' })
-  getAvatarUrl(): string | null {
+  getImageUrl(): string | null {
     if (!this.image) {
       return null;
     }
