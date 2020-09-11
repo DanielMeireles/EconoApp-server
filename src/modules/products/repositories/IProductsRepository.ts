@@ -2,6 +2,7 @@ import Product from '@modules/products/infra/typeorm/entities/Product';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 
 interface IProductsRepository {
+  findById(id: string): Promise<Product | undefined>;
   findByName(name: string): Promise<Product | undefined>;
   findByDescription(description: string): Promise<Product | undefined>;
   create(data: ICreateProductDTO): Promise<Product>;
