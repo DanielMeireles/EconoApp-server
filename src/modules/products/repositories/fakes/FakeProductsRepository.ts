@@ -8,6 +8,10 @@ import Product from '@modules/products/infra/typeorm/entities/Product';
 class FakeProductsRepository implements IProductsRepository {
   private products: Product[] = [];
 
+  public async findAll(): Promise<Product[]> {
+    return this.products;
+  }
+
   public async findById(id: string): Promise<Product | undefined> {
     const findProduct = this.products.find(product => product.id === id);
 

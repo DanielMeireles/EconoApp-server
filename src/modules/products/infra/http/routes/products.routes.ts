@@ -28,10 +28,17 @@ productsRouter.post(
 );
 
 productsRouter.patch(
-  '/image',
+  '/:product_id/image',
+  celebrate({
+    [Segments.PARAMS]: {
+      product_id: Joi.string().required(),
+    },
+  }),
   ensureAuthenticated,
   upload.single('image'),
   productImageController.update,
 );
+
+productsRouter.get('/', productsController.index);
 
 export default productsRouter;
