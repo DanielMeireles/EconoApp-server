@@ -4,6 +4,11 @@ import AppError from '@shared/errors/AppError';
 
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
+import IFindShoppingListsByIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByIdDTO';
+import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
+import IFindShoppingListsByDescriptionDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDescriptionDTO';
+import IFindShoppingListsByDateDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDateDTO';
+import IFindShoppingListsByUserIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByUserIdDTO';
 
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
@@ -14,16 +19,18 @@ class ShoppingListsRepository implements IShoppingListsRepository {
     this.ormRepository = getRepository(ShoppingList);
   }
 
-  public async findAll(user_id: string): Promise<ShoppingList[]> {
+  public async findAll({
+    user_id,
+  }: IFindShoppingListsByUserIdDTO): Promise<ShoppingList[]> {
     const shoppingLists = await this.ormRepository.find({ where: { user_id } });
 
     return shoppingLists;
   }
 
-  public async findById(
-    user_id: string,
-    id: string,
-  ): Promise<ShoppingList | undefined> {
+  public async findById({
+    user_id,
+    id,
+  }: IFindShoppingListsByIdDTO): Promise<ShoppingList | undefined> {
     try {
       const shoppingList = await this.ormRepository.findOne({
         where: { user_id, id },
@@ -35,10 +42,10 @@ class ShoppingListsRepository implements IShoppingListsRepository {
     }
   }
 
-  public async findByName(
-    user_id: string,
-    name: string,
-  ): Promise<ShoppingList[]> {
+  public async findByName({
+    user_id,
+    name,
+  }: IFindShoppingListsByNameDTO): Promise<ShoppingList[]> {
     const shoppingList = await this.ormRepository.find({
       where: { user_id, name },
     });
@@ -46,10 +53,10 @@ class ShoppingListsRepository implements IShoppingListsRepository {
     return shoppingList;
   }
 
-  public async findByDescription(
-    user_id: string,
-    description: string,
-  ): Promise<ShoppingList[]> {
+  public async findByDescription({
+    user_id,
+    description,
+  }: IFindShoppingListsByDescriptionDTO): Promise<ShoppingList[]> {
     const shoppingList = await this.ormRepository.find({
       where: { user_id, description },
     });
@@ -57,10 +64,10 @@ class ShoppingListsRepository implements IShoppingListsRepository {
     return shoppingList;
   }
 
-  public async findByDate(
-    user_id: string,
-    date: Date,
-  ): Promise<ShoppingList[]> {
+  public async findByDate({
+    user_id,
+    date,
+  }: IFindShoppingListsByDateDTO): Promise<ShoppingList[]> {
     const shoppingList = await this.ormRepository.find({
       where: { user_id, date },
     });
