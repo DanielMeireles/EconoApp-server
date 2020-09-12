@@ -24,20 +24,18 @@ class ProductsRepository implements IProductsRepository {
     return product;
   }
 
-  public async findByName(name: string): Promise<Product | undefined> {
-    const product = await this.ormRepository.findOne({ where: { name } });
+  public async findByName(name: string): Promise<Product[]> {
+    const products = await this.ormRepository.find({ where: { name } });
 
-    return product;
+    return products;
   }
 
-  public async findByDescription(
-    description: string,
-  ): Promise<Product | undefined> {
-    const product = await this.ormRepository.findOne({
+  public async findByDescription(description: string): Promise<Product[]> {
+    const products = await this.ormRepository.find({
       where: { description },
     });
 
-    return product;
+    return products;
   }
 
   public async create({
