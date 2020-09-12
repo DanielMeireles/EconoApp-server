@@ -5,12 +5,14 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 
 import ProductsController from '@modules/products/infra/http/controllers/ProductsController';
+import ProductsByNameController from '@modules/products/infra/http/controllers/ProductsByNameController';
 import ProductImageController from '@modules/products/infra/http/controllers/ProductImageController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
+const productsByNameController = new ProductsByNameController();
 const productImageController = new ProductImageController();
 const upload = multer(uploadConfig.multer);
 
@@ -39,6 +41,17 @@ productsRouter.patch(
   productImageController.update,
 );
 
-productsRouter.get('/', productsController.index);
+productsRouter.get('/', ensureAuthenticated, productsController.index);
+
+productsRouter.get(
+  '/:name',
+  celebrate({
+    [Segments.PARAMS]: {
+      name: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  productsByNameController.index,
+);
 
 export default productsRouter;
