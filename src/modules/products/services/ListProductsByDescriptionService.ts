@@ -18,7 +18,9 @@ class ListProductsByDescriptionService {
   ) {}
 
   public async execute({ description }: IRequest): Promise<Product[]> {
-    const products = await this.productsRepository.findByName(description);
+    const products = await this.productsRepository.findByDescription(
+      description,
+    );
 
     if (products.length === 0) {
       throw new AppError('Product not found');

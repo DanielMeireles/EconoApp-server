@@ -27,7 +27,7 @@ class ListProductsByNameService {
     );
 
     if (!products) {
-      products = await this.productsRepository.findByName(name);
+      products = await this.productsRepository.findByName({ name });
 
       if (products.length === 0) {
         throw new AppError('Products not found');
