@@ -4,14 +4,10 @@ import AppError from '@shared/errors/AppError';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-
-interface IRequest {
-  name: string;
-  description: string;
-}
+import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 
 @injectable()
-class CreateProductsService {
+class CreateProductService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
@@ -20,7 +16,10 @@ class CreateProductsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ name, description }: IRequest): Promise<Product> {
+  public async execute({
+    name,
+    description,
+  }: ICreateProductDTO): Promise<Product> {
     const findProductsWithSameName = await this.productsRepository.findByName({
       name,
     });
@@ -40,4 +39,4 @@ class CreateProductsService {
   }
 }
 
-export default CreateProductsService;
+export default CreateProductService;
