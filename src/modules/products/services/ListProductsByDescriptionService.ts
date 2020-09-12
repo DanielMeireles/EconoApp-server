@@ -6,9 +6,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
-interface IRequest {
-  description: string;
-}
+import IFindProductsByDescriptionDTO from '@modules/products/dtos/IFindProductsByDescriptionDTO';
 
 @injectable()
 class ListProductsByDescriptionService {
@@ -17,7 +15,9 @@ class ListProductsByDescriptionService {
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute({ description }: IRequest): Promise<Product[]> {
+  public async execute({
+    description,
+  }: IFindProductsByDescriptionDTO): Promise<Product[]> {
     const products = await this.productsRepository.findByDescription({
       description,
     });

@@ -6,9 +6,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
-interface IRequest {
-  id: string;
-}
+import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 
 @injectable()
 class ListProductsByIdService {
@@ -17,7 +15,9 @@ class ListProductsByIdService {
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute({ id }: IRequest): Promise<Product | undefined> {
+  public async execute({
+    id,
+  }: IFindProductsByIdDTO): Promise<Product | undefined> {
     const product = await this.productsRepository.findById({ id });
 
     if (!product) {

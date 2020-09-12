@@ -5,10 +5,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
-interface IRequest {
-  product_id: string;
-  imageFilename: string;
-}
+import IUpdateProductImageDTO from '@modules/products/dtos/IUpdateProductImageDTO';
 
 @injectable()
 class UpdateProductImageService {
@@ -23,7 +20,7 @@ class UpdateProductImageService {
   public async execute({
     product_id,
     imageFilename,
-  }: IRequest): Promise<Product> {
+  }: IUpdateProductImageDTO): Promise<Product> {
     const product = await this.productsRepository.findById({ id: product_id });
 
     if (!product) {

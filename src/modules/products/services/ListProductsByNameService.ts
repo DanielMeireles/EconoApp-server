@@ -7,9 +7,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
-interface IRequest {
-  name: string;
-}
+import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
 
 @injectable()
 class ListProductsByNameService {
@@ -21,7 +19,7 @@ class ListProductsByNameService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ name }: IRequest): Promise<Product[]> {
+  public async execute({ name }: IFindProductsByNameDTO): Promise<Product[]> {
     let products = await this.cacheProvider.recover<Product[]>(
       `products-name:${name}`,
     );
