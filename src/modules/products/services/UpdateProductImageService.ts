@@ -24,7 +24,7 @@ class UpdateProductImageService {
     product_id,
     imageFilename,
   }: IRequest): Promise<Product> {
-    const product = await this.productsRepository.findById(product_id);
+    const product = await this.productsRepository.findById({ id: product_id });
 
     if (!product) {
       throw new AppError(

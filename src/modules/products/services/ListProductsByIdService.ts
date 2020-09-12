@@ -18,7 +18,7 @@ class ListProductsByIdService {
   ) {}
 
   public async execute({ id }: IRequest): Promise<Product | undefined> {
-    const product = await this.productsRepository.findById(id);
+    const product = await this.productsRepository.findById({ id });
 
     if (!product) {
       throw new AppError('Product not found');

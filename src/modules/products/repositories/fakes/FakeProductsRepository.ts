@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
@@ -12,7 +13,9 @@ class FakeProductsRepository implements IProductsRepository {
     return this.products;
   }
 
-  public async findById(id: string): Promise<Product | undefined> {
+  public async findById({
+    id,
+  }: IFindProductsByIdDTO): Promise<Product | undefined> {
     const findProduct = this.products.find(product => product.id === id);
 
     return findProduct;

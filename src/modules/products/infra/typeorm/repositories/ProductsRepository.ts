@@ -3,7 +3,9 @@ import { getRepository, Repository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
+
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
@@ -20,7 +22,9 @@ class ProductsRepository implements IProductsRepository {
     return products;
   }
 
-  public async findById(id: string): Promise<Product | undefined> {
+  public async findById({
+    id,
+  }: IFindProductsByIdDTO): Promise<Product | undefined> {
     try {
       const product = await this.ormRepository.findOne(id);
 
