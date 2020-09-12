@@ -45,8 +45,6 @@ describe('ListShoppingLists', () => {
       user_id: shoppingList_1.user_id,
     });
 
-    const { id } = shoppingLists[0];
-
-    expect(id).toEqual(shoppingList_1.id);
+    expect(shoppingLists[0].id).toEqual(shoppingList_1.id);
   });
 });
