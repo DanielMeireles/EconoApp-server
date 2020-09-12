@@ -2,11 +2,14 @@ import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/Shopping
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
 
 interface IShoppingListsRepository {
-  findAll(): Promise<ShoppingList[]>;
-  findById(id: string): Promise<ShoppingList | undefined>;
-  findByName(name: string): Promise<ShoppingList[]>;
-  findByDescription(description: string): Promise<ShoppingList[]>;
-  findByDate(date: Date): Promise<ShoppingList[]>;
+  findAll(user_id: string): Promise<ShoppingList[]>;
+  findById(user_id: string, id: string): Promise<ShoppingList | undefined>;
+  findByName(user_id: string, name: string): Promise<ShoppingList[]>;
+  findByDescription(
+    user_id: string,
+    description: string,
+  ): Promise<ShoppingList[]>;
+  findByDate(user_id: string, date: Date): Promise<ShoppingList[]>;
   create(data: ICreateShoppingListDTO): Promise<ShoppingList>;
   save(shoppingList: ShoppingList): Promise<ShoppingList>;
 }

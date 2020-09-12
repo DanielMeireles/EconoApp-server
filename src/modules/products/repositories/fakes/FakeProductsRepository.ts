@@ -19,27 +19,15 @@ class FakeProductsRepository implements IProductsRepository {
   }
 
   public async findByName(name: string): Promise<Product[]> {
-    const findProducts: Product[] = [];
-
-    const findProduct = this.products.find(product => product.name === name);
-
-    if (findProduct) {
-      findProducts.push(findProduct);
-    }
+    const findProducts = this.products.filter(product => product.name === name);
 
     return findProducts;
   }
 
   public async findByDescription(description: string): Promise<Product[]> {
-    const findProducts: Product[] = [];
-
-    const findProduct = this.products.find(
+    const findProducts = this.products.filter(
       product => product.description === description,
     );
-
-    if (findProduct) {
-      findProducts.push(findProduct);
-    }
 
     return findProducts;
   }
