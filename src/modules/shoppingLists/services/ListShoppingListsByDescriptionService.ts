@@ -19,16 +19,16 @@ class ListShoppingListsByDescriptionService {
     user_id,
     description,
   }: IFindShoppingListsByDescriptionDTO): Promise<ShoppingList[]> {
-    const shoppingList = await this.shoppingListsRepository.findByDescription({
+    const shoppingLists = await this.shoppingListsRepository.findByDescription({
       user_id,
       description,
     });
 
-    if (!shoppingList) {
+    if (shoppingLists.length === 0) {
       throw new AppError('Shopping list not found');
     }
 
-    return shoppingList;
+    return shoppingLists;
   }
 }
 

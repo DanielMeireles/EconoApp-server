@@ -6,10 +6,10 @@ import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShopp
 
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
-import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
+import IFindShoppingListsByDateDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDateDTO';
 
 @injectable()
-class ListShoppingListsByNameService {
+class ListShoppingListsByDateService {
   constructor(
     @inject('ShoppingListsRepository')
     private shoppingListsRepository: IShoppingListsRepository,
@@ -17,11 +17,11 @@ class ListShoppingListsByNameService {
 
   public async execute({
     user_id,
-    name,
-  }: IFindShoppingListsByNameDTO): Promise<ShoppingList[]> {
-    const shoppingLists = await this.shoppingListsRepository.findByName({
+    date,
+  }: IFindShoppingListsByDateDTO): Promise<ShoppingList[]> {
+    const shoppingLists = await this.shoppingListsRepository.findByDate({
       user_id,
-      name,
+      date,
     });
 
     if (shoppingLists.length === 0) {
@@ -32,4 +32,4 @@ class ListShoppingListsByNameService {
   }
 }
 
-export default ListShoppingListsByNameService;
+export default ListShoppingListsByDateService;
