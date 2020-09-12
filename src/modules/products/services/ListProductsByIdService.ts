@@ -7,25 +7,25 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 interface IRequest {
-  description: string;
+  id: string;
 }
 
 @injectable()
-class ListProductsByDescriptionService {
+class ListProductsByIdService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute({ description }: IRequest): Promise<Product[]> {
-    const products = await this.productsRepository.findByName(description);
+  public async execute({ id }: IRequest): Promise<Product | undefined> {
+    const product = await this.productsRepository.findById(id);
 
-    if (products.length === 0) {
+    if (!product) {
       throw new AppError('Product not found');
     }
 
-    return products;
+    return product;
   }
 }
 
-export default ListProductsByDescriptionService;
+export default ListProductsByIdService;

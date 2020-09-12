@@ -1,5 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
+
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
@@ -26,6 +28,10 @@ class ListProductsByNameService {
 
     if (!products) {
       products = await this.productsRepository.findByName(name);
+
+      if (products.length === 0) {
+        throw new AppError('Products not found');
+      }
 
       await this.cacheProvider.save(`products-name:${name}`, products);
     }

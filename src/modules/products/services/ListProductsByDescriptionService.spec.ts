@@ -1,19 +1,17 @@
+import AppError from '@shared/errors/AppError';
+
 import FakeProductsRepository from '@modules/products/repositories/fakes/FakeProductsRepository';
-import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import ListProductsByDescriptionService from '@modules/products/services/ListProductsByDescriptionService';
 
 let fakeProductsRepository: FakeProductsRepository;
 let listProductsByDescription: ListProductsByDescriptionService;
-let fakeCacheProvider: FakeCacheProvider;
 
 describe('ListProductsByDescription', () => {
   beforeEach(() => {
     fakeProductsRepository = new FakeProductsRepository();
-    fakeCacheProvider = new FakeCacheProvider();
 
     listProductsByDescription = new ListProductsByDescriptionService(
       fakeProductsRepository,
-      fakeCacheProvider,
     );
   });
 
@@ -33,12 +31,18 @@ describe('ListProductsByDescription', () => {
       description: 'Product 3',
     });
 
-    await listProductsByDescription.execute({ description: 'Product 1' });
-
     const products = await listProductsByDescription.execute({
-      description: 'Product 1',
+      description: product_1.description,
     });
 
     expect(products).toEqual([product_1]);
+  });
+
+  it('should not be able to list the products from non-existing description', async () => {
+    expect(
+      listProductsByDescription.execute({
+        description: 'non-existing-product-description',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

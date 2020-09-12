@@ -1,5 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
+import AppError from '@shared/errors/AppError';
+
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 
@@ -19,9 +21,13 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async findById(id: string): Promise<Product | undefined> {
-    const product = await this.ormRepository.findOne(id);
+    try {
+      const product = await this.ormRepository.findOne(id);
 
-    return product;
+      return product;
+    } catch {
+      throw new AppError('Products not found');
+    }
   }
 
   public async findByName(name: string): Promise<Product[]> {
