@@ -25,7 +25,7 @@ class CreateProductsService {
       name,
     );
 
-    if (findProductsWithSameName) {
+    if (findProductsWithSameName.length > 0) {
       throw new AppError('There is already a product with this name');
     }
 
