@@ -3,6 +3,5 @@ declare namespace Express {
     user: {
       id: string;
     };
-    product_id: string;
   }
 }
