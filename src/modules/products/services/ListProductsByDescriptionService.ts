@@ -6,11 +6,11 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 interface IRequest {
-  name: string;
+  description: string;
 }
 
 @injectable()
-class ListProductsByNameService {
+class ListProductsByDescriptionService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
@@ -19,19 +19,22 @@ class ListProductsByNameService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ name }: IRequest): Promise<Product[]> {
+  public async execute({ description }: IRequest): Promise<Product[]> {
     let products = await this.cacheProvider.recover<Product[]>(
-      `products-name:${name}`,
+      `products-description:${description}`,
     );
 
     if (!products) {
-      products = await this.productsRepository.findByName(name);
+      products = await this.productsRepository.findByName(description);
 
-      await this.cacheProvider.save(`products-name:${name}`, products);
+      await this.cacheProvider.save(
+        `products-description:${description}`,
+        products,
+      );
     }
 
     return products;
   }
 }
 
-export default ListProductsByNameService;
+export default ListProductsByDescriptionService;

@@ -6,6 +6,7 @@ import uploadConfig from '@config/upload';
 
 import ProductsController from '@modules/products/infra/http/controllers/ProductsController';
 import ProductsByNameController from '@modules/products/infra/http/controllers/ProductsByNameController';
+import ProductsByDescriptionController from '@modules/products/infra/http/controllers/ProductsByDescriptionController';
 import ProductImageController from '@modules/products/infra/http/controllers/ProductImageController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -13,6 +14,7 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const productsRouter = Router();
 const productsController = new ProductsController();
 const productsByNameController = new ProductsByNameController();
+const productsByDescriptionController = new ProductsByDescriptionController();
 const productImageController = new ProductImageController();
 const upload = multer(uploadConfig.multer);
 
@@ -44,7 +46,7 @@ productsRouter.patch(
 productsRouter.get('/', ensureAuthenticated, productsController.index);
 
 productsRouter.get(
-  '/:name',
+  '/findByName/:name',
   celebrate({
     [Segments.PARAMS]: {
       name: Joi.string().required(),
@@ -52,6 +54,17 @@ productsRouter.get(
   }),
   ensureAuthenticated,
   productsByNameController.index,
+);
+
+productsRouter.get(
+  '/findByDescription/:description',
+  celebrate({
+    [Segments.PARAMS]: {
+      description: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  productsByDescriptionController.index,
 );
 
 export default productsRouter;
