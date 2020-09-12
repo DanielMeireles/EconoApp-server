@@ -4,13 +4,20 @@ import { isEqual } from 'date-fns';
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
+import IFindShoppingListsByIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByIdDTO';
+import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
+import IFindShoppingListsByDescriptionDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDescriptionDTO';
+import IFindShoppingListsByDateDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDateDTO';
+import IFindShoppingListsByUserIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByUserIdDTO';
 
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 class FakeShoppingListsRepository implements IShoppingListsRepository {
   private shoppingLists: ShoppingList[] = [];
 
-  public async findAll(user_id: string): Promise<ShoppingList[]> {
+  public async findAll({
+    user_id,
+  }: IFindShoppingListsByUserIdDTO): Promise<ShoppingList[]> {
     const findShoppingLists = this.shoppingLists.filter(
       shoppingList => shoppingList.user_id === user_id,
     );
@@ -18,10 +25,10 @@ class FakeShoppingListsRepository implements IShoppingListsRepository {
     return findShoppingLists;
   }
 
-  public async findById(
-    user_id: string,
-    id: string,
-  ): Promise<ShoppingList | undefined> {
+  public async findById({
+    user_id,
+    id,
+  }: IFindShoppingListsByIdDTO): Promise<ShoppingList | undefined> {
     const findShoppingList = this.shoppingLists.find(
       shoppingList =>
         shoppingList.user_id === user_id && shoppingList.id === id,
@@ -30,10 +37,10 @@ class FakeShoppingListsRepository implements IShoppingListsRepository {
     return findShoppingList;
   }
 
-  public async findByName(
-    user_id: string,
-    name: string,
-  ): Promise<ShoppingList[]> {
+  public async findByName({
+    user_id,
+    name,
+  }: IFindShoppingListsByNameDTO): Promise<ShoppingList[]> {
     const findShoppingList = this.shoppingLists.filter(
       shoppingList =>
         shoppingList.user_id === user_id && shoppingList.name === name,
@@ -42,10 +49,10 @@ class FakeShoppingListsRepository implements IShoppingListsRepository {
     return findShoppingList;
   }
 
-  public async findByDescription(
-    user_id: string,
-    description: string,
-  ): Promise<ShoppingList[]> {
+  public async findByDescription({
+    user_id,
+    description,
+  }: IFindShoppingListsByDescriptionDTO): Promise<ShoppingList[]> {
     const findShoppingList = this.shoppingLists.filter(
       shoppingList =>
         shoppingList.user_id === user_id &&
@@ -55,10 +62,10 @@ class FakeShoppingListsRepository implements IShoppingListsRepository {
     return findShoppingList;
   }
 
-  public async findByDate(
-    user_id: string,
-    date: Date,
-  ): Promise<ShoppingList[]> {
+  public async findByDate({
+    user_id,
+    date,
+  }: IFindShoppingListsByDateDTO): Promise<ShoppingList[]> {
     const findShoppingList = this.shoppingLists.filter(
       shoppingList =>
         shoppingList.user_id === user_id && isEqual(shoppingList.date, date),
