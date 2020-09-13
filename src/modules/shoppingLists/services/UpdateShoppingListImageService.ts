@@ -32,10 +32,7 @@ class UpdateShoppingListImageService {
     });
 
     if (!shoppingList) {
-      throw new AppError(
-        'Only authenticated users can change image of shopping list.',
-        401,
-      );
+      throw new AppError('Shopping list not found', 401);
     }
 
     if (shoppingList.image) {
