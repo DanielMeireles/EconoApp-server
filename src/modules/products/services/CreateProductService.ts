@@ -21,12 +21,15 @@ class CreateProductService {
     brand,
     description,
   }: ICreateProductDTO): Promise<Product> {
-    const findProductsWithSameName = await this.productsRepository.findByName({
-      name,
-    });
+    const findProductsWithSameName = await this.productsRepository.findByNameAndBrand(
+      {
+        name,
+        brand,
+      },
+    );
 
     if (findProductsWithSameName.length > 0) {
-      throw new AppError('There is already a product with this name');
+      throw new AppError('There is already a product with this name and brand');
     }
 
     const product = await this.productsRepository.create({
@@ -36,6 +39,8 @@ class CreateProductService {
     });
 
     await this.cacheProvider.invalidate('products-list');
+    await this.cacheProvider.invalidate(`products-name:${name}`);
+    await this.cacheProvider.invalidate(`products-brand:${brand}`);
 
     return product;
   }

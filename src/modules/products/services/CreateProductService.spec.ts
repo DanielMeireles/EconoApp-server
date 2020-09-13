@@ -28,7 +28,7 @@ describe('CreateProduct', () => {
     expect(product).toHaveProperty('id');
   });
 
-  it('should not be able to create a new product with same name from another', async () => {
+  it('should not be able to create a new product with same name and brand from another', async () => {
     await createProduct.execute({
       name: 'Product 1',
       brand: 'Brand 1',

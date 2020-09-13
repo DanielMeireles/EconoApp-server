@@ -8,12 +8,13 @@ import Product from '@modules/products/infra/typeorm/entities/Product';
 
 class ProductsController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, description } = req.body;
+    const { name, brand, description } = req.body;
 
     const createProduct = container.resolve(CreateProductService);
 
     const product = await createProduct.execute({
       name,
+      brand,
       description,
     });
 

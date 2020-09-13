@@ -5,6 +5,7 @@ import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
 import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
+import IFindProductsByNameAndBrandDTO from '@modules/products/dtos/IFindProductsByNameAndBrandDTO';
 import IFindProductsByDescriptionDTO from '@modules/products/dtos/IFindProductsByDescriptionDTO';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
@@ -37,6 +38,17 @@ class FakeProductsRepository implements IProductsRepository {
   }: IFindProductsByBrandDTO): Promise<Product[]> {
     const findProducts = this.products.filter(
       product => product.brand === brand,
+    );
+
+    return findProducts;
+  }
+
+  public async findByNameAndBrand({
+    name,
+    brand,
+  }: IFindProductsByNameAndBrandDTO): Promise<Product[]> {
+    const findProducts = this.products.filter(
+      product => product.name === name && product.brand === brand,
     );
 
     return findProducts;

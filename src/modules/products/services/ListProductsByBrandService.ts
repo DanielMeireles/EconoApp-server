@@ -21,7 +21,7 @@ class ListProductsByBrandService {
 
   public async execute({ brand }: IFindProductsByBrAndDTO): Promise<Product[]> {
     let products = await this.cacheProvider.recover<Product[]>(
-      `products-name:${brand}`,
+      `products-brand:${brand}`,
     );
 
     if (!products) {
@@ -31,7 +31,7 @@ class ListProductsByBrandService {
         throw new AppError('Products not found');
       }
 
-      await this.cacheProvider.save(`products-name:${brand}`, products);
+      await this.cacheProvider.save(`products-brand:${brand}`, products);
     }
 
     return products;

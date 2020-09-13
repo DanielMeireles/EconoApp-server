@@ -28,10 +28,7 @@ class UpdateProductImageService {
     const product = await this.productsRepository.findById({ id });
 
     if (!product) {
-      throw new AppError(
-        'Only authenticated users can change image of product.',
-        401,
-      );
+      throw new AppError('Product not found', 401);
     }
 
     if (product.image) {
@@ -46,6 +43,7 @@ class UpdateProductImageService {
 
     await this.cacheProvider.invalidate('products-list');
     await this.cacheProvider.invalidate(`products-name:${product.name}`);
+    await this.cacheProvider.invalidate(`products-brand:${product.brand}`);
 
     return product;
   }

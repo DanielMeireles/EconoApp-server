@@ -29,7 +29,8 @@ productsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      description: Joi.string().required(),
+      brand: Joi.string(),
+      description: Joi.string(),
     },
   }),
   ensureAuthenticated,
