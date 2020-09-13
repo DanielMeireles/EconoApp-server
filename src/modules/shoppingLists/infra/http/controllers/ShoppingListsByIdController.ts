@@ -8,7 +8,7 @@ import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/Shopping
 class ShoppingListsByIdController {
   public async index(req: Request, res: Response): Promise<Response> {
     const user_id = req.user.id;
-    const { id } = req.params;
+    const { id } = req.body;
     const listShoppingLists = container.resolve(ListShoppingListsByIdService);
     const shoppingLists = await listShoppingLists.execute({ user_id, id });
 
