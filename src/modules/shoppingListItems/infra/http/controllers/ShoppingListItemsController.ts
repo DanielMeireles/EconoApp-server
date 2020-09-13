@@ -6,8 +6,8 @@ import CreateShoppingListItemService from '@modules/shoppingListItems/services/C
 import UpdateShoppingListItemService from '@modules/shoppingListItems/services/UpdateShoppingListItemService';
 
 class ShoppingListItemsController {
-  public async create(req: Request, res: Response): Promise<Response> {
-    const { product_id, shoppinglist_id } = req.body;
+  public async create(request: Request, response: Response): Promise<Response> {
+    const { product_id, shoppinglist_id } = request.body;
 
     const createShoppingListItem = container.resolve(
       CreateShoppingListItemService,
@@ -18,10 +18,10 @@ class ShoppingListItemsController {
       shoppinglist_id,
     });
 
-    return res.json(shoppingListItem);
+    return response.json(shoppingListItem);
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  public async update(request: Request, response: Response): Promise<Response> {
     const {
       id,
       date,
@@ -31,7 +31,7 @@ class ShoppingListItemsController {
       value,
       longitude,
       latitude,
-    } = req.body;
+    } = request.body;
 
     const updateShoppingListItemService = container.resolve(
       UpdateShoppingListItemService,
@@ -48,7 +48,7 @@ class ShoppingListItemsController {
       latitude,
     });
 
-    return res.json(classToClass(shoppingListItem));
+    return response.json(classToClass(shoppingListItem));
   }
 }
 

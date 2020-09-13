@@ -5,18 +5,18 @@ import { classToClass } from 'class-transformer';
 import UpdateShoppingListImageService from '@modules/shoppingLists/services/UpdateShoppingListImageService';
 
 class ShoppingListImageController {
-  public async update(req: Request, res: Response): Promise<Response> {
+  public async update(request: Request, response: Response): Promise<Response> {
     const updateShoppingListImage = container.resolve(
       UpdateShoppingListImageService,
     );
 
     const shoppingList = await updateShoppingListImage.execute({
-      user_id: req.user.id,
-      id: req.params.id,
-      imageFilename: req.file.filename,
+      user_id: request.user.id,
+      id: request.params.id,
+      imageFilename: request.file.filename,
     });
 
-    return res.json(classToClass(shoppingList));
+    return response.json(classToClass(shoppingList));
   }
 }
 

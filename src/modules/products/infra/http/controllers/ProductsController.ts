@@ -8,8 +8,8 @@ import ListProductsService from '@modules/products/services/ListProductsService'
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 class ProductsController {
-  public async create(req: Request, res: Response): Promise<Response> {
-    const { name, brand, description } = req.body;
+  public async create(request: Request, response: Response): Promise<Response> {
+    const { name, brand, description } = request.body;
 
     const createProduct = container.resolve(CreateProductService);
 
@@ -19,11 +19,11 @@ class ProductsController {
       description,
     });
 
-    return res.json(product);
+    return response.json(product);
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
-    const { id, name, brand, description } = req.body;
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name, brand, description } = request.body;
 
     const updateProductService = container.resolve(UpdateProductService);
 
@@ -34,15 +34,15 @@ class ProductsController {
       description,
     });
 
-    return res.json(classToClass(product));
+    return response.json(classToClass(product));
   }
 
-  public async index(req: Request, res: Response): Promise<Response> {
+  public async index(request: Request, response: Response): Promise<Response> {
     const listProducts = container.resolve(ListProductsService);
 
     const products = await listProducts.execute();
 
-    return res.json(classToClass(plainToClass(Product, products)));
+    return response.json(classToClass(plainToClass(Product, products)));
   }
 }
 

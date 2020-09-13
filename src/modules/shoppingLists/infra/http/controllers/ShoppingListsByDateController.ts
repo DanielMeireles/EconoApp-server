@@ -6,16 +6,16 @@ import ListShoppingListsByDateService from '@modules/shoppingLists/services/List
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 class ShoppingListsByDateController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const user_id = req.user.id;
-    const { date } = req.body;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { date } = request.body;
     const listShoppingLists = container.resolve(ListShoppingListsByDateService);
     const shoppingLists = await listShoppingLists.execute({
       user_id,
       date,
     });
 
-    return res.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
+    return response.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
   }
 }
 

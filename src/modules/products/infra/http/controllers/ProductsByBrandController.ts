@@ -6,12 +6,12 @@ import ListProductsByBrandService from '@modules/products/services/ListProductsB
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 class ProductsByBrandController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const { brand } = req.body;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { brand } = request.body;
     const listProducts = container.resolve(ListProductsByBrandService);
     const products = await listProducts.execute({ brand });
 
-    return res.json(classToClass(plainToClass(Product, products)));
+    return response.json(classToClass(plainToClass(Product, products)));
   }
 }
 

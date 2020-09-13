@@ -8,8 +8,8 @@ import ListShoppingListsService from '@modules/shoppingLists/services/ListShoppi
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 class ProductsController {
-  public async create(req: Request, res: Response): Promise<Response> {
-    const { name, description, date } = req.body;
+  public async create(request: Request, response: Response): Promise<Response> {
+    const { name, description, date } = request.body;
 
     const createShoppingList = container.resolve(CreateShoppingListService);
 
@@ -17,14 +17,14 @@ class ProductsController {
       name,
       description,
       date,
-      user_id: req.user.id,
+      user_id: request.user.id,
     });
 
-    return res.json(shoppingList);
+    return response.json(shoppingList);
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
-    const { id, name, description, date } = req.body;
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name, description, date } = request.body;
 
     const updateShoppingListService = container.resolve(
       UpdateShoppingListService,
@@ -35,20 +35,22 @@ class ProductsController {
       name,
       description,
       date,
-      user_id: req.user.id,
+      user_id: request.user.id,
     });
 
-    return res.json(classToClass(shoppingList));
+    return response.json(classToClass(shoppingList));
   }
 
-  public async index(req: Request, res: Response): Promise<Response> {
-    const user_id = req.user.id;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
 
     const listShoppingLists = container.resolve(ListShoppingListsService);
 
     const shoppingLists = await listShoppingLists.execute({ user_id });
 
-    return res.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
+    return response.json(
+      classToClass(plainToClass(ShoppingList, shoppingLists)),
+    );
   }
 }
 

@@ -6,9 +6,9 @@ import ListShoppingListsByDescriptionService from '@modules/shoppingLists/servic
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 class ShoppingListsByDescriptionController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const user_id = req.user.id;
-    const { description } = req.body;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { description } = request.body;
     const listShoppingLists = container.resolve(
       ListShoppingListsByDescriptionService,
     );
@@ -17,7 +17,7 @@ class ShoppingListsByDescriptionController {
       description,
     });
 
-    return res.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
+    return response.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
   }
 }
 

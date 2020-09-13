@@ -6,13 +6,15 @@ import ListShoppingListsByIdService from '@modules/shoppingLists/services/ListSh
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 class ShoppingListsByIdController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const user_id = req.user.id;
-    const { id } = req.body;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { id } = request.body;
     const listShoppingLists = container.resolve(ListShoppingListsByIdService);
     const shoppingLists = await listShoppingLists.execute({ user_id, id });
 
-    return res.json(classToClass(plainToClass(ShoppingList, shoppingLists)));
+    return response.json(
+      classToClass(plainToClass(ShoppingList, shoppingLists)),
+    );
   }
 }
 

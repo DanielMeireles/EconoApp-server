@@ -18,12 +18,12 @@ const limiter = new RateLimiterRedis({
 });
 
 async function rateLimter(
-  req: Request,
-  res: Response,
+  request: Request,
+  response: Response,
   next: NextFunction,
 ): Promise<void> {
   try {
-    await limiter.consume(req.ip);
+    await limiter.consume(request.ip);
 
     return next();
   } catch (err) {

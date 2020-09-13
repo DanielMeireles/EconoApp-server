@@ -6,8 +6,8 @@ import ListShoppingListItemsByShoppingListId from '@modules/shoppingListItems/se
 import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/ShoppingListItem';
 
 class ShoppingListItemsByShoppingListIdController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const { shoppinglist_id } = req.body;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { shoppinglist_id } = request.body;
 
     const listShoppingListItemsByShoppingListId = container.resolve(
       ListShoppingListItemsByShoppingListId,
@@ -17,7 +17,7 @@ class ShoppingListItemsByShoppingListIdController {
       { shoppinglist_id },
     );
 
-    return res.json(
+    return response.json(
       classToClass(plainToClass(ShoppingListItem, shoppingListItems)),
     );
   }
