@@ -37,6 +37,20 @@ productsRouter.post(
   productsController.create,
 );
 
+productsRouter.put(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+      name: Joi.string().required(),
+      brand: Joi.string(),
+      description: Joi.string(),
+    },
+  }),
+  ensureAuthenticated,
+  productsController.update,
+);
+
 productsRouter.patch(
   '/:id/image',
   celebrate({

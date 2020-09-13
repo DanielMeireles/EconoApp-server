@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass, plainToClass } from 'class-transformer';
 
 import CreateProductService from '@modules/products/services/CreateProductService';
+import UpdateProductService from '@modules/products/services/UpdateProductService';
 import ListProductsService from '@modules/products/services/ListProductsService';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
@@ -19,6 +20,21 @@ class ProductsController {
     });
 
     return res.json(product);
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const { id, name, brand, description } = req.body;
+
+    const updateProductService = container.resolve(UpdateProductService);
+
+    const product = await updateProductService.execute({
+      id,
+      name,
+      brand,
+      description,
+    });
+
+    return res.json(classToClass(product));
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
