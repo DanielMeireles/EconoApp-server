@@ -45,6 +45,7 @@ class UpdateProductImageService {
     await this.productsRepository.save(product);
 
     await this.cacheProvider.invalidate('products-list');
+    await this.cacheProvider.invalidate(`products-name:${product.name}`);
 
     return product;
   }
