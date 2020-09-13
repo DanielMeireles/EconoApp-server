@@ -37,6 +37,20 @@ shoppingListsRouter.post(
   shoppingListsController.create,
 );
 
+shoppingListsRouter.put(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+      name: Joi.string().required(),
+      description: Joi.string().required(),
+      date: Joi.date().required(),
+    },
+  }),
+  ensureAuthenticated,
+  shoppingListsController.update,
+);
+
 shoppingListsRouter.patch(
   '/:id/image',
   celebrate({
