@@ -4,11 +4,7 @@ import { verify } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
-interface ITokenPayload {
-  iat: number;
-  exp: number;
-  sub: string;
-}
+import ITokenPayload from '@modules/users/dtos/ITokenPayloadDTO';
 
 function ensureAuthenticated(
   request: Request,
