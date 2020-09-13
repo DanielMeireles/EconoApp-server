@@ -2,19 +2,24 @@ import AppError from '@shared/errors/AppError';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeShoppingListsRepository from '@modules/shoppingLists/repositories/fakes/FakeShoppingListsRepository';
 import UpdateShoppingListImage from '@modules/shoppingLists/services/UpdateShoppingListImageService';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
 let fakeShoppingListsRepository: FakeShoppingListsRepository;
 let fakeStorageProvider: FakeStorageProvider;
+let fakeCacheProvider: FakeCacheProvider;
+
 let updateShoppingListImage: UpdateShoppingListImage;
 
 describe('UpdateShoppingListImage', () => {
   beforeEach(() => {
     fakeShoppingListsRepository = new FakeShoppingListsRepository();
     fakeStorageProvider = new FakeStorageProvider();
+    fakeCacheProvider = new FakeCacheProvider();
 
     updateShoppingListImage = new UpdateShoppingListImage(
       fakeShoppingListsRepository,
       fakeStorageProvider,
+      fakeCacheProvider,
     );
   });
 
