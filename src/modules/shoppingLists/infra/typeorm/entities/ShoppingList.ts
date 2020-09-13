@@ -12,7 +12,7 @@ import { Expose } from 'class-transformer';
 import User from '@modules/users/infra/typeorm/entities/User';
 import uploadConfig from '@config/upload';
 
-@Entity('shoppinglist')
+@Entity('shoppinglists')
 class ShoppingList {
   @PrimaryGeneratedColumn('uuid')
   id: string;

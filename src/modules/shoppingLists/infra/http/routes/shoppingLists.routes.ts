@@ -56,9 +56,9 @@ shoppingListsRouter.get(
 );
 
 shoppingListsRouter.get(
-  '/findById/:id',
+  '/findById',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       id: Joi.string().required(),
     },
   }),
@@ -67,9 +67,9 @@ shoppingListsRouter.get(
 );
 
 shoppingListsRouter.get(
-  '/findByName/:name',
+  '/findByName',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       name: Joi.string().required(),
     },
   }),
@@ -78,9 +78,9 @@ shoppingListsRouter.get(
 );
 
 shoppingListsRouter.get(
-  '/findByDescription/:description',
+  '/findByDescription',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       description: Joi.string().required(),
     },
   }),
@@ -89,9 +89,9 @@ shoppingListsRouter.get(
 );
 
 shoppingListsRouter.get(
-  '/findByDescription/:date',
+  '/findByDate',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       date: Joi.date().required(),
     },
   }),
