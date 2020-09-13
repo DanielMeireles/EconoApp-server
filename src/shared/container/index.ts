@@ -18,6 +18,9 @@ import ProductsRepository from '@modules/products/infra/typeorm/repositories/Pro
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 import ShoppingListsRepository from '@modules/shoppingLists/infra/typeorm/repositories/ShoppingListsRepository';
 
+import IShoppingListItemsRepository from '@modules/shoppingListItems/repositories/IShoppingListItemsRepository';
+import ShoppingListItemsRepository from '@modules/shoppingListItems/infra/typeorm/repositories/ShoppingListItemsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -41,4 +44,9 @@ container.registerSingleton<IProductsRepository>(
 container.registerSingleton<IShoppingListsRepository>(
   'ShoppingListsRepository',
   ShoppingListsRepository,
+);
+
+container.registerSingleton<IShoppingListItemsRepository>(
+  'ShoppingListItemsRepository',
+  ShoppingListItemsRepository,
 );
