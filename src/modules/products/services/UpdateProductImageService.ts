@@ -18,10 +18,10 @@ class UpdateProductImageService {
   ) {}
 
   public async execute({
-    product_id,
+    id,
     imageFilename,
   }: IUpdateProductImageDTO): Promise<Product> {
-    const product = await this.productsRepository.findById({ id: product_id });
+    const product = await this.productsRepository.findById({ id });
 
     if (!product) {
       throw new AppError(

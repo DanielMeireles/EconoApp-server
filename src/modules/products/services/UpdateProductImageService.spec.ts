@@ -25,7 +25,7 @@ describe('UpdateProductImage', () => {
     });
 
     await updateProductImage.execute({
-      product_id: product.id,
+      id: product.id,
       imageFilename: 'product.jpg',
     });
 
@@ -35,7 +35,7 @@ describe('UpdateProductImage', () => {
   it('should not be able to update image from non existing product', async () => {
     await expect(
       updateProductImage.execute({
-        product_id: 'non-existin-product',
+        id: 'non-existin-product',
         imageFilename: 'product.jpg',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -50,12 +50,12 @@ describe('UpdateProductImage', () => {
     });
 
     await updateProductImage.execute({
-      product_id: product.id,
+      id: product.id,
       imageFilename: 'product.jpg',
     });
 
     await updateProductImage.execute({
-      product_id: product.id,
+      id: product.id,
       imageFilename: 'product-new.jpg',
     });
 

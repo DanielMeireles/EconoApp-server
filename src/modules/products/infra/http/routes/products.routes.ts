@@ -37,7 +37,7 @@ productsRouter.patch(
   '/:product_id/image',
   celebrate({
     [Segments.PARAMS]: {
-      product_id: Joi.string().required(),
+      id: Joi.string().required(),
     },
   }),
   ensureAuthenticated,

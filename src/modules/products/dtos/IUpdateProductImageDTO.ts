@@ -1,5 +1,5 @@
 interface IUpdateProductImageDTO {
-  product_id: string;
+  id: string;
   imageFilename: string;
 }
 

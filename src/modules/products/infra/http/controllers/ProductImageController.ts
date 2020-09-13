@@ -9,7 +9,7 @@ class ProductImageController {
     const updateProductImage = container.resolve(UpdateProductImageService);
 
     const product = await updateProductImage.execute({
-      product_id: req.params.product_id,
+      id: req.params.id,
       imageFilename: req.file.filename,
     });
 
