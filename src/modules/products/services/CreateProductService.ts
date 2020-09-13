@@ -33,7 +33,7 @@ class CreateProductService {
       description,
     });
 
-    await this.cacheProvider.invalidatePrefix('products-list');
+    await this.cacheProvider.invalidate('products-list');
 
     return product;
   }

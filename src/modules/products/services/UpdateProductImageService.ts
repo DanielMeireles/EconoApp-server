@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
 import IUpdateProductImageDTO from '@modules/products/dtos/IUpdateProductImageDTO';
@@ -15,6 +16,9 @@ class UpdateProductImageService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -39,6 +43,8 @@ class UpdateProductImageService {
     product.image = filename;
 
     await this.productsRepository.save(product);
+
+    await this.cacheProvider.invalidate('products-list');
 
     return product;
   }
