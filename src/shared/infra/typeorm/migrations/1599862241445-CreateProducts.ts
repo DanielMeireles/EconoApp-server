@@ -19,8 +19,14 @@ export default class CreateProducts1599862241445 implements MigrationInterface {
             isUnique: true,
           },
           {
+            name: 'brand',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'description',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'image',

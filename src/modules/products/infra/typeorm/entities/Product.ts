@@ -18,6 +18,9 @@ class Product {
   name: string;
 
   @Column()
+  brand: string;
+
+  @Column()
   description: string;
 
   @Column()

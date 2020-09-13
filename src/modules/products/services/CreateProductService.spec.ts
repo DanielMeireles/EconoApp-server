@@ -21,7 +21,8 @@ describe('CreateProduct', () => {
   it('should be able to create a new product', async () => {
     const product = await createProduct.execute({
       name: 'Product 1',
-      description: 'Product 1',
+      brand: 'Brand 1',
+      description: 'Description 1',
     });
 
     expect(product).toHaveProperty('id');
@@ -30,13 +31,15 @@ describe('CreateProduct', () => {
   it('should not be able to create a new product with same name from another', async () => {
     await createProduct.execute({
       name: 'Product 1',
-      description: 'Product 1',
+      brand: 'Brand 1',
+      description: 'Description 1',
     });
 
     await expect(
       createProduct.execute({
         name: 'Product 1',
-        description: 'Product 1',
+        brand: 'Brand 1',
+        description: 'Description 1',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

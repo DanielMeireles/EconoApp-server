@@ -20,17 +20,20 @@ describe('ListProducts', () => {
   it('should be able to list the products', async () => {
     const product_1 = await fakeProductsRepository.create({
       name: 'Product 1',
-      description: 'Product 1',
+      brand: 'Brand 1',
+      description: 'Description 1',
     });
 
     const product_2 = await fakeProductsRepository.create({
       name: 'Product 2',
-      description: 'Product 2',
+      brand: 'Brand 2',
+      description: 'Description 2',
     });
 
     const product_3 = await fakeProductsRepository.create({
       name: 'Product 3',
-      description: 'Product 3',
+      brand: 'Brand 3',
+      description: 'Description 3',
     });
 
     await listProducts.execute();

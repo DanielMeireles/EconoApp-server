@@ -7,6 +7,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
+import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
 import IFindProductsByDescriptionDTO from '@modules/products/dtos/IFindProductsByDescriptionDTO';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
@@ -44,6 +45,16 @@ class ProductsRepository implements IProductsRepository {
     return products;
   }
 
+  public async findByBrand({
+    brand,
+  }: IFindProductsByBrandDTO): Promise<Product[]> {
+    const products = await this.ormRepository.find({
+      where: { brand },
+    });
+
+    return products;
+  }
+
   public async findByDescription({
     description,
   }: IFindProductsByDescriptionDTO): Promise<Product[]> {
@@ -56,9 +67,10 @@ class ProductsRepository implements IProductsRepository {
 
   public async create({
     name,
+    brand,
     description,
   }: ICreateProductDTO): Promise<Product> {
-    const product = this.ormRepository.create({ name, description });
+    const product = this.ormRepository.create({ name, brand, description });
 
     await this.ormRepository.save(product);
 

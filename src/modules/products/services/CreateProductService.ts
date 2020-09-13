@@ -18,6 +18,7 @@ class CreateProductService {
 
   public async execute({
     name,
+    brand,
     description,
   }: ICreateProductDTO): Promise<Product> {
     const findProductsWithSameName = await this.productsRepository.findByName({
@@ -30,6 +31,7 @@ class CreateProductService {
 
     const product = await this.productsRepository.create({
       name,
+      brand,
       description,
     });
 

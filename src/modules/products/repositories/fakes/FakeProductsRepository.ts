@@ -4,6 +4,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
+import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
 import IFindProductsByDescriptionDTO from '@modules/products/dtos/IFindProductsByDescriptionDTO';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
@@ -31,6 +32,16 @@ class FakeProductsRepository implements IProductsRepository {
     return findProducts;
   }
 
+  public async findByBrand({
+    brand,
+  }: IFindProductsByBrandDTO): Promise<Product[]> {
+    const findProducts = this.products.filter(
+      product => product.brand === brand,
+    );
+
+    return findProducts;
+  }
+
   public async findByDescription({
     description,
   }: IFindProductsByDescriptionDTO): Promise<Product[]> {
@@ -43,11 +54,12 @@ class FakeProductsRepository implements IProductsRepository {
 
   public async create({
     name,
+    brand,
     description,
   }: ICreateProductDTO): Promise<Product> {
     const product = new Product();
 
-    Object.assign(product, { id: uuid(), name, description });
+    Object.assign(product, { id: uuid(), name, brand, description });
 
     this.products.push(product);
 

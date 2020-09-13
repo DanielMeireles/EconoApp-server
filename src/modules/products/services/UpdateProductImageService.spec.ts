@@ -26,7 +26,8 @@ describe('UpdateProductImage', () => {
   it('should be able to update the product image', async () => {
     const product = await fakeProductsRepository.create({
       name: 'Product 1',
-      description: 'Product 1',
+      brand: 'Brand 1',
+      description: 'Description 1',
     });
 
     await updateProductImage.execute({
@@ -51,7 +52,8 @@ describe('UpdateProductImage', () => {
 
     const product = await fakeProductsRepository.create({
       name: 'Product 1',
-      description: 'Product 1',
+      brand: 'Brand 1',
+      description: 'Description 1',
     });
 
     await updateProductImage.execute({
