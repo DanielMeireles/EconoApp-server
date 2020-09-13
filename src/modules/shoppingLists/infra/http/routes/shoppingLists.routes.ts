@@ -32,6 +32,7 @@ shoppingListsRouter.post(
       description: Joi.string().required(),
     },
   }),
+  ensureAuthenticated,
   shoppingListsController.create,
 );
 

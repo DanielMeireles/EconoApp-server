@@ -30,6 +30,7 @@ productsRouter.post(
       description: Joi.string().required(),
     },
   }),
+  ensureAuthenticated,
   productsController.create,
 );
 
@@ -48,9 +49,9 @@ productsRouter.patch(
 productsRouter.get('/', ensureAuthenticated, productsController.index);
 
 productsRouter.get(
-  '/findById/:id',
+  '/findById',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       id: Joi.string().required(),
     },
   }),
@@ -59,9 +60,9 @@ productsRouter.get(
 );
 
 productsRouter.get(
-  '/findByName/:name',
+  '/findByName',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       name: Joi.string().required(),
     },
   }),
@@ -70,9 +71,9 @@ productsRouter.get(
 );
 
 productsRouter.get(
-  '/findByDescription/:description',
+  '/findByDescription',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       description: Joi.string().required(),
     },
   }),
