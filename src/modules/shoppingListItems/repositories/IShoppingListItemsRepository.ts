@@ -1,9 +1,13 @@
 import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/ShoppingListItem';
 import ICreateShoppingListItemDTO from '@modules/shoppingListItems/dtos/ICreateShoppingListItemDTO';
+import IFindShoppingListItemsByIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByIdDTO';
 import IFindShoppingListItemsByShoppingListIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByShoppingListIdDTO';
 
 interface IShoppingListItemsRepository {
-  findByByShoppingListId(
+  findById(
+    data: IFindShoppingListItemsByIdDTO,
+  ): Promise<ShoppingListItem | undefined>;
+  findByShoppingListId(
     data: IFindShoppingListItemsByShoppingListIdDTO,
   ): Promise<ShoppingListItem[]>;
   create(data: ICreateShoppingListItemDTO): Promise<ShoppingListItem>;

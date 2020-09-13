@@ -24,6 +24,24 @@ shoppingListItemsRouter.post(
   shoppingListItemsController.create,
 );
 
+shoppingListItemsRouter.put(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+      date: Joi.date(),
+      product_id: Joi.string().required(),
+      shoppinglist_id: Joi.string().required(),
+      quantity: Joi.number(),
+      value: Joi.number(),
+      longitude: Joi.number(),
+      latitude: Joi.number(),
+    },
+  }),
+  ensureAuthenticated,
+  shoppingListItemsController.update,
+);
+
 shoppingListItemsRouter.get(
   '/findByShoppingListId',
   celebrate({

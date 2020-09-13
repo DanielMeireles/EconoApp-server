@@ -24,7 +24,7 @@ class ListShoppingListItemsByShoppingListIdService {
     >(`shopping-lists-item:${shoppinglist_id}`);
 
     if (!shoppingListItems) {
-      shoppingListItems = await this.shoppingListItemsRepository.findByByShoppingListId(
+      shoppingListItems = await this.shoppingListItemsRepository.findByShoppingListId(
         { shoppinglist_id },
       );
 

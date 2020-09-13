@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 import IShoppingListItemsRepository from '@modules/shoppingListItems/repositories/IShoppingListItemsRepository';
 import ICreateShoppingListItemDTO from '@modules/shoppingListItems/dtos/ICreateShoppingListItemDTO';
 import IFindShoppingListItemsByShoppingListIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByShoppingListIdDTO';
+import IFindShoppingListItemsByIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByIdDTO';
 
 import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/ShoppingListItem';
 
@@ -15,7 +16,19 @@ class ShoppingListItemsRepository implements IShoppingListItemsRepository {
     this.ormRepository = getRepository(ShoppingListItem);
   }
 
-  public async findByByShoppingListId({
+  public async findById({
+    id,
+  }: IFindShoppingListItemsByIdDTO): Promise<ShoppingListItem | undefined> {
+    try {
+      const shoppingListItem = await this.ormRepository.findOne(id);
+
+      return shoppingListItem;
+    } catch {
+      throw new AppError('Shopping list item not found');
+    }
+  }
+
+  public async findByShoppingListId({
     shoppinglist_id,
   }: IFindShoppingListItemsByShoppingListIdDTO): Promise<ShoppingListItem[]> {
     try {

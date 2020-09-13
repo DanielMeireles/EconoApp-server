@@ -3,6 +3,7 @@ import { uuid } from 'uuidv4';
 import IShoppingListItemsRepository from '@modules/shoppingListItems/repositories/IShoppingListItemsRepository';
 
 import ICreateShoppingListItemDTO from '@modules/shoppingListItems/dtos/ICreateShoppingListItemDTO';
+import IFindShoppingListItemsByIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByIdDTO';
 import IFindShoppingListItemsByShoppingListIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByShoppingListIdDTO';
 
 import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/ShoppingListItem';
@@ -10,7 +11,17 @@ import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/
 class FakeShoppingListItemsRepository implements IShoppingListItemsRepository {
   private shoppingListItems: ShoppingListItem[] = [];
 
-  public async findByByShoppingListId({
+  public async findById({
+    id,
+  }: IFindShoppingListItemsByIdDTO): Promise<ShoppingListItem | undefined> {
+    const findShoppingListItem = this.shoppingListItems.find(
+      shoppingListItem => shoppingListItem.id === id,
+    );
+
+    return findShoppingListItem;
+  }
+
+  public async findByShoppingListId({
     shoppinglist_id,
   }: IFindShoppingListItemsByShoppingListIdDTO): Promise<ShoppingListItem[]> {
     const findShoppingListItems = this.shoppingListItems.filter(
