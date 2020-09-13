@@ -34,7 +34,7 @@ productsRouter.post(
 );
 
 productsRouter.patch(
-  '/:product_id/image',
+  '/:id/image',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().required(),
