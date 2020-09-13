@@ -20,16 +20,13 @@ class ListShoppingListsService {
     user_id,
   }: IFindShoppingListsByUserIdDTO): Promise<ShoppingList[]> {
     let shoppingLists = await this.cacheProvider.recover<ShoppingList[]>(
-      `shoppingLists-list:${user_id}`,
+      `shopping-lists:${user_id}`,
     );
 
     if (!shoppingLists) {
       shoppingLists = await this.shoppingListsRepository.findAll({ user_id });
 
-      await this.cacheProvider.save(
-        `shoppingLists-list:${user_id}`,
-        shoppingLists,
-      );
+      await this.cacheProvider.save(`shopping-lists:${user_id}`, shoppingLists);
     }
 
     return shoppingLists;

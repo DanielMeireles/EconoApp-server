@@ -29,7 +29,7 @@ class CreateShoppingListService {
       user_id,
     });
 
-    await this.cacheProvider.invalidatePrefix('shopping-lists');
+    await this.cacheProvider.invalidate(`shopping-lists:${user_id}`);
 
     return shoppingList;
   }

@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 
 import IUpdateShoppingListImageDTO from '@modules/shoppingLists/dtos/IUpdateShoppingListImageDTO';
@@ -15,6 +16,9 @@ class UpdateShoppingListImageService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -43,6 +47,8 @@ class UpdateShoppingListImageService {
     shoppingList.image = filename;
 
     await this.shoppingListsRepository.save(shoppingList);
+
+    await this.cacheProvider.invalidate(`shopping-lists:${user_id}`);
 
     return shoppingList;
   }
