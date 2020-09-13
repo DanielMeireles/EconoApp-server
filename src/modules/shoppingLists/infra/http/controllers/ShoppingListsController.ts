@@ -8,7 +8,7 @@ import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/Shopping
 
 class ProductsController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, description, date, user_id } = req.body;
+    const { name, description, date } = req.body;
 
     const createShoppingList = container.resolve(CreateShoppingListService);
 
@@ -16,7 +16,7 @@ class ProductsController {
       name,
       description,
       date,
-      user_id,
+      user_id: req.user.id,
     });
 
     return res.json(shoppingList);

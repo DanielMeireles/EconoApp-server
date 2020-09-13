@@ -30,6 +30,7 @@ shoppingListsRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       description: Joi.string().required(),
+      date: Joi.date().required(),
     },
   }),
   ensureAuthenticated,
