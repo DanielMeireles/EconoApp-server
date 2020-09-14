@@ -29,7 +29,9 @@ describe('ResetPasswordService', () => {
       password: '123456',
     });
 
-    const { token } = await fakeUserTokensRepository.generate(user.id);
+    const { token } = await fakeUserTokensRepository.generate({
+      user_id: user.id,
+    });
 
     const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
 
@@ -38,7 +40,9 @@ describe('ResetPasswordService', () => {
       token,
     });
 
-    const updatedUser = await fakeUsersRepository.findById(user.id);
+    const updatedUser = await fakeUsersRepository.findById({
+      id: user.id,
+    });
 
     expect(generateHash).toHaveBeenCalledWith('123123');
     expect(updatedUser?.password).toBe('123123');
@@ -54,9 +58,9 @@ describe('ResetPasswordService', () => {
   });
 
   it('should not be able to reset the password with non-existing user', async () => {
-    const { token } = await fakeUserTokensRepository.generate(
-      'non-existing-user',
-    );
+    const { token } = await fakeUserTokensRepository.generate({
+      user_id: 'non-existing-user',
+    });
 
     await expect(
       resetPassword.execute({
@@ -73,7 +77,9 @@ describe('ResetPasswordService', () => {
       password: '123456',
     });
 
-    const { token } = await fakeUserTokensRepository.generate(user.id);
+    const { token } = await fakeUserTokensRepository.generate({
+      user_id: user.id,
+    });
 
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       const customDate = new Date();

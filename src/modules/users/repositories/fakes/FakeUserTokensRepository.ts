@@ -2,11 +2,15 @@ import { uuid } from 'uuidv4';
 
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
+import IGenerateUserTokenDTO from '@modules/users/dtos/IGenerateUserTokenDTO';
+import IFindUserTokensByTokenDTO from '@modules/users/dtos/IFindUserTokensByTokenDTO';
 
 class FakeUserTokenRepository implements IUserTokensRepository {
   private userTokens: UserToken[] = [];
 
-  public async generate(user_id: string): Promise<UserToken> {
+  public async generate({
+    user_id,
+  }: IGenerateUserTokenDTO): Promise<UserToken> {
     const userToken = new UserToken();
 
     Object.assign(userToken, {
@@ -22,7 +26,9 @@ class FakeUserTokenRepository implements IUserTokensRepository {
     return userToken;
   }
 
-  public async findByToken(token: string): Promise<UserToken | undefined> {
+  public async findByToken({
+    token,
+  }: IFindUserTokensByTokenDTO): Promise<UserToken | undefined> {
     const userToken = this.userTokens.find(
       findToken => findToken.token === token,
     );

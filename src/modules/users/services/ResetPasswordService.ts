@@ -25,20 +25,20 @@ class ResetPasswordService {
   ) {}
 
   async execute({ token, password }: IRequest): Promise<void> {
-    const userToken = await this.userTokensRepository.findByToken(token);
+    const userToken = await this.userTokensRepository.findByToken({ token });
 
     if (!userToken) {
       throw new AppError('User token does not exists');
     }
 
-    const user = await this.usersRepository.findById(userToken.user_id);
+    const user = await this.usersRepository.findById({ id: userToken.user_id });
 
     if (!user) {
       throw new AppError('User does not exists');
     }
 
-    const tokenCraetedAt = userToken.created_at;
-    const compareDate = addHours(tokenCraetedAt, 2);
+    const tokenCreatedAt = userToken.created_at;
+    const compareDate = addHours(tokenCreatedAt, 2);
 
     if (isAfter(Date.now(), compareDate)) {
       throw new AppError('Token expired');

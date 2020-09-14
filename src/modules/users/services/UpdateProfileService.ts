@@ -30,13 +30,15 @@ class UpdateProfileService {
     password,
     old_password,
   }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById({ id: user_id });
 
     if (!user) {
       throw new AppError('User not found');
     }
 
-    const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
+    const userWithUpdatedEmail = await this.usersRepository.findByEmail({
+      email,
+    });
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
       throw new AppError('E-mail already in use');
@@ -51,7 +53,7 @@ class UpdateProfileService {
     }
 
     if (password && old_password) {
-      const checkOldPassword = await this.hashProvider.comapreHash(
+      const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
         user.password,
       );
