@@ -37,6 +37,17 @@ productsRouter.post(
   productsController.create,
 );
 
+productsRouter.delete(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  productsController.delete,
+);
+
 productsRouter.put(
   '/',
   celebrate({
