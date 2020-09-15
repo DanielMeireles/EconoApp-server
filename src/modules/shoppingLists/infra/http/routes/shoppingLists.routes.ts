@@ -51,6 +51,17 @@ shoppingListsRouter.put(
   shoppingListsController.update,
 );
 
+shoppingListsRouter.delete(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  shoppingListsController.delete,
+);
+
 shoppingListsRouter.patch(
   '/:id/image',
   celebrate({

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass, plainToClass } from 'class-transformer';
 
 import CreateShoppingListService from '@modules/shoppingLists/services/CreateShoppingListService';
+import DeleteShoppingListService from '@modules/shoppingLists/services/DeleteShoppingListService';
 import UpdateShoppingListService from '@modules/shoppingLists/services/UpdateShoppingListService';
 import ListShoppingListsService from '@modules/shoppingLists/services/ListShoppingListsService';
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
@@ -51,6 +52,22 @@ class ProductsController {
     return response.json(
       classToClass(plainToClass(ShoppingList, shoppingLists)),
     );
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.body;
+    const user_id = request.user.id;
+
+    const deleteShoppingListService = container.resolve(
+      DeleteShoppingListService,
+    );
+
+    await deleteShoppingListService.execute({
+      user_id,
+      id,
+    });
+
+    return response.json();
   }
 }
 
