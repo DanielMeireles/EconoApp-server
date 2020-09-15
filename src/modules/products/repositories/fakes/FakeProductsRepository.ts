@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
 import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
@@ -76,6 +77,14 @@ class FakeProductsRepository implements IProductsRepository {
     this.products.push(product);
 
     return product;
+  }
+
+  public async delete({ id }: IDeleteProductDTO): Promise<void> {
+    const findIndex = this.products.findIndex(
+      findProduct => findProduct.id === id,
+    );
+
+    this.products.splice(findIndex);
   }
 
   public async save(product: Product): Promise<Product> {

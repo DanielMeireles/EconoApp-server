@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
 import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
@@ -87,6 +88,14 @@ class ProductsRepository implements IProductsRepository {
     await this.ormRepository.save(product);
 
     return product;
+  }
+
+  public async delete({ id }: IDeleteProductDTO): Promise<void> {
+    try {
+      await this.ormRepository.delete(id);
+    } catch {
+      throw new AppError('Failure to delete the product');
+    }
   }
 
   public async save(product: Product): Promise<Product> {

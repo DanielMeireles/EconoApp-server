@@ -1,5 +1,6 @@
 import Product from '@modules/products/infra/typeorm/entities/Product';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import IFindProductsByNameDTO from '@modules/products/dtos/IFindProductsByNameDTO';
 import IFindProductsByBrandDTO from '@modules/products/dtos/IFindProductsByBrandDTO';
@@ -14,6 +15,7 @@ interface IProductsRepository {
   findByNameAndBrand(data: IFindProductsByNameAndBrandDTO): Promise<Product[]>;
   findByDescription(data: IFindProductsByDescriptionDTO): Promise<Product[]>;
   create(data: ICreateProductDTO): Promise<Product>;
+  delete(data: IDeleteProductDTO): Promise<void>;
   save(product: Product): Promise<Product>;
 }
 
