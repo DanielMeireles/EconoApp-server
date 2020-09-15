@@ -42,6 +42,17 @@ shoppingListItemsRouter.put(
   shoppingListItemsController.update,
 );
 
+shoppingListItemsRouter.delete(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  shoppingListItemsController.delete,
+);
+
 shoppingListItemsRouter.get(
   '/findByShoppingListId',
   celebrate({

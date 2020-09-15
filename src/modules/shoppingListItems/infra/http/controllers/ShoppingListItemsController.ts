@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import CreateShoppingListItemService from '@modules/shoppingListItems/services/CreateShoppingListItemService';
+import DeleteShoppingListItemService from '@modules/shoppingListItems/services/DeleteShoppingListItemService';
 import UpdateShoppingListItemService from '@modules/shoppingListItems/services/UpdateShoppingListItemService';
 
 class ShoppingListItemsController {
@@ -49,6 +50,20 @@ class ShoppingListItemsController {
     });
 
     return response.json(classToClass(shoppingListItem));
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.body;
+
+    const deleteShoppingListItemService = container.resolve(
+      DeleteShoppingListItemService,
+    );
+
+    await deleteShoppingListItemService.execute({
+      id,
+    });
+
+    return response.json();
   }
 }
 
