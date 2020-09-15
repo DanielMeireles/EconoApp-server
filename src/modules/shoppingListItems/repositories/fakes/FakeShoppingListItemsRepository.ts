@@ -3,6 +3,7 @@ import { uuid } from 'uuidv4';
 import IShoppingListItemsRepository from '@modules/shoppingListItems/repositories/IShoppingListItemsRepository';
 
 import ICreateShoppingListItemDTO from '@modules/shoppingListItems/dtos/ICreateShoppingListItemDTO';
+import IDeleteShoppingListItemDTO from '@modules/shoppingListItems/dtos/IDeleteShoppingListItemDTO';
 import IFindShoppingListItemsByIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByIdDTO';
 import IFindShoppingListItemsByShoppingListIdDTO from '@modules/shoppingListItems/dtos/IFindShoppingListItemsByShoppingListIdDTO';
 
@@ -46,6 +47,14 @@ class FakeShoppingListItemsRepository implements IShoppingListItemsRepository {
     this.shoppingListItems.push(shoppingListItem);
 
     return shoppingListItem;
+  }
+
+  public async delete({ id }: IDeleteShoppingListItemDTO): Promise<void> {
+    const findIndex = this.shoppingListItems.findIndex(
+      findShoppingListItem => findShoppingListItem.id === id,
+    );
+
+    this.shoppingListItems.splice(findIndex);
   }
 
   public async save(
