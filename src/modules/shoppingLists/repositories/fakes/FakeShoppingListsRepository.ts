@@ -4,6 +4,7 @@ import { isEqual } from 'date-fns';
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
+import IDeleteShoppingListDTO from '@modules/shoppingLists/dtos/IDeleteShoppingListDTO';
 import IFindShoppingListsByIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByIdDTO';
 import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
 import IFindShoppingListsByDescriptionDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDescriptionDTO';
@@ -93,6 +94,15 @@ class FakeShoppingListsRepository implements IShoppingListsRepository {
     this.shoppingLists.push(shoppingList);
 
     return shoppingList;
+  }
+
+  public async delete({ user_id, id }: IDeleteShoppingListDTO): Promise<void> {
+    const findIndex = this.shoppingLists.findIndex(
+      findShoppingList =>
+        findShoppingList.id === id && findShoppingList.user_id === user_id,
+    );
+
+    this.shoppingLists.splice(findIndex);
   }
 
   public async save(shoppingList: ShoppingList): Promise<ShoppingList> {

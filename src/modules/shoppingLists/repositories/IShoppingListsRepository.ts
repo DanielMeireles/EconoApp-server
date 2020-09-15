@@ -1,5 +1,6 @@
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
+import IDeleteShoppingListDTO from '@modules/shoppingLists/dtos/IDeleteShoppingListDTO';
 import IFindShoppingListsByIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByIdDTO';
 import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
 import IFindShoppingListsByDescriptionDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDescriptionDTO';
@@ -15,6 +16,7 @@ interface IShoppingListsRepository {
   ): Promise<ShoppingList[]>;
   findByDate(data: IFindShoppingListsByDateDTO): Promise<ShoppingList[]>;
   create(data: ICreateShoppingListDTO): Promise<ShoppingList>;
+  delete(data: IDeleteShoppingListDTO): Promise<void>;
   save(shoppingList: ShoppingList): Promise<ShoppingList>;
 }
 

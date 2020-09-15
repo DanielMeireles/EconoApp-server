@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import IShoppingListsRepository from '@modules/shoppingLists/repositories/IShoppingListsRepository';
 import ICreateShoppingListDTO from '@modules/shoppingLists/dtos/ICreateShoppingListDTO';
+import IDeleteShoppingListDTO from '@modules/shoppingLists/dtos/IDeleteShoppingListDTO';
 import IFindShoppingListsByIdDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByIdDTO';
 import IFindShoppingListsByNameDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByNameDTO';
 import IFindShoppingListsByDescriptionDTO from '@modules/shoppingLists/dtos/IFindShoppingListsByDescriptionDTO';
@@ -91,6 +92,15 @@ class ShoppingListsRepository implements IShoppingListsRepository {
     await this.ormRepository.save(shoppingList);
 
     return shoppingList;
+  }
+
+  public async delete({ user_id, id }: IDeleteShoppingListDTO): Promise<void> {
+    this.findById({ user_id, id });
+    try {
+      await this.ormRepository.delete(id);
+    } catch {
+      throw new AppError('Failure to delete the shopping list');
+    }
   }
 
   public async save(shoppingList: ShoppingList): Promise<ShoppingList> {
