@@ -3,10 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
-
-interface IRequest {
-  user_id: string;
-}
+import IShowProfileDTO from '@modules/users/dtos/IShowProfileDTO';
 
 @injectable()
 class ShowProfileService {
@@ -15,7 +12,7 @@ class ShowProfileService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ user_id }: IRequest): Promise<User> {
+  public async execute({ user_id }: IShowProfileDTO): Promise<User> {
     const user = await this.usersRepository.findById({ id: user_id });
 
     if (!user) {

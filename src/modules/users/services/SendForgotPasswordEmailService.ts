@@ -5,10 +5,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-
-interface IRequest {
-  email: string;
-}
+import IForgotPasswordDTO from '@modules/users/dtos/IForgotPasswordDTO';
 
 @injectable()
 class SendForgotPasswordEmailSercice {
@@ -23,7 +20,7 @@ class SendForgotPasswordEmailSercice {
     private userTokensRepository: IUserTokensRepository,
   ) {}
 
-  async execute({ email }: IRequest): Promise<void> {
+  async execute({ email }: IForgotPasswordDTO): Promise<void> {
     const user = await this.usersRepository.findByEmail({ email });
 
     if (!user) {

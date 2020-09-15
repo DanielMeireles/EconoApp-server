@@ -4,14 +4,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import User from '@modules/users/infra/typeorm/entities/User';
-
-interface IRequest {
-  user_id: string;
-  name: string;
-  email: string;
-  old_password?: string;
-  password?: string;
-}
+import IUpdateProfileDTO from '@modules/users/dtos/IUpdateProfileDTO';
 
 @injectable()
 class UpdateProfileService {
@@ -29,7 +22,7 @@ class UpdateProfileService {
     email,
     password,
     old_password,
-  }: IRequest): Promise<User> {
+  }: IUpdateProfileDTO): Promise<User> {
     const user = await this.usersRepository.findById({ id: user_id });
 
     if (!user) {

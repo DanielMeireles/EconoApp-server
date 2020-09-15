@@ -4,11 +4,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import User from '@modules/users/infra/typeorm/entities/User';
-
-interface IRequest {
-  user_id: string;
-  avatarFilename: string;
-}
+import IUpdateUserAvatarDTO from '@modules/users/dtos/IUpdateUserAvatarDTO';
 
 @injectable()
 class UpdateUserAvatarService {
@@ -20,7 +16,10 @@ class UpdateUserAvatarService {
     private storageProvider: IStorageProvider,
   ) {}
 
-  public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
+  public async execute({
+    user_id,
+    avatarFilename,
+  }: IUpdateUserAvatarDTO): Promise<User> {
     const user = await this.usersRepository.findById({ id: user_id });
 
     if (!user) {

@@ -5,12 +5,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import User from '@modules/users/infra/typeorm/entities/User';
-
-interface IRequest {
-  name: string;
-  email: string;
-  password: string;
-}
+import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 @injectable()
 class CreateUserService {
@@ -25,7 +20,7 @@ class CreateUserService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  async execute({ name, email, password }: IRequest): Promise<User> {
+  async execute({ name, email, password }: ICreateUserDTO): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail({ email });
 
     if (checkUserExists) {

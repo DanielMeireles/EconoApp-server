@@ -5,17 +5,8 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import authConfig from '@config/auth';
-import User from '@modules/users/infra/typeorm/entities/User';
-
-interface IRequest {
-  email: string;
-  password: string;
-}
-
-interface IResponse {
-  user: User;
-  token: string;
-}
+import IAuthenticateUserRequestDTO from '@modules/users/dtos/IAuthenticateUserRequestDTO';
+import IAuthenticateUserResponseDTO from '@modules/users/dtos/IAuthenticateUserResponseDTO';
 
 @injectable()
 class AuthenticateUserService {
@@ -27,7 +18,10 @@ class AuthenticateUserService {
     private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
+  public async execute({
+    email,
+    password,
+  }: IAuthenticateUserRequestDTO): Promise<IAuthenticateUserResponseDTO> {
     const user = await this.usersRepository.findByEmail({ email });
 
     if (!user) {

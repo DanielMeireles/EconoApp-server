@@ -5,11 +5,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
-
-interface IRequest {
-  password: string;
-  token: string;
-}
+import IResetPasswordDTO from '@modules/users/dtos/IResetPasswordDTO';
 
 @injectable()
 class ResetPasswordService {
@@ -24,7 +20,7 @@ class ResetPasswordService {
     private hashProvider: IHashProvider,
   ) {}
 
-  async execute({ token, password }: IRequest): Promise<void> {
+  async execute({ token, password }: IResetPasswordDTO): Promise<void> {
     const userToken = await this.userTokensRepository.findByToken({ token });
 
     if (!userToken) {
