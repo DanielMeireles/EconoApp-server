@@ -77,9 +77,9 @@ productsRouter.patch(
 productsRouter.get('/', ensureAuthenticated, productsController.index);
 
 productsRouter.get(
-  '/findById',
+  '/findById/:id',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       id: Joi.string().required(),
     },
   }),
@@ -88,9 +88,9 @@ productsRouter.get(
 );
 
 productsRouter.get(
-  '/findByName',
+  '/findByName/:name',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       name: Joi.string().required(),
     },
   }),
@@ -99,9 +99,9 @@ productsRouter.get(
 );
 
 productsRouter.get(
-  '/findByBrand',
+  '/findByBrand/:brand',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       brand: Joi.string().required(),
     },
   }),
@@ -110,9 +110,9 @@ productsRouter.get(
 );
 
 productsRouter.get(
-  '/findByDescription',
+  '/findByDescription/:description',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       description: Joi.string().required(),
     },
   }),
