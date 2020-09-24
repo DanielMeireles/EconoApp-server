@@ -7,8 +7,7 @@ import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/
 
 class ShoppingListItemsByShoppingListIdController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { shoppinglist_id } = request.body;
-
+    const { shoppinglist_id } = request.params;
     const listShoppingListItemsByShoppingListId = container.resolve(
       ListShoppingListItemsByShoppingListId,
     );
