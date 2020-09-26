@@ -33,6 +33,11 @@ export default class CreateShoppingListItem1600014645018
             type: 'uuid',
           },
           {
+            name: 'checked',
+            type: 'boolean',
+            default: 'false',
+          },
+          {
             name: 'quantity',
             type: 'double precision',
             isNullable: true,

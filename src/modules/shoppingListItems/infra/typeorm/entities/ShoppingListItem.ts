@@ -8,6 +8,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
 import Product from '@modules/products/infra/typeorm/entities/Product';
@@ -35,6 +36,9 @@ class ShoppingListItem {
   shoppingList: ShoppingList;
 
   @Column()
+  checked: boolean;
+
+  @Column()
   quantity: number;
 
   @Column()
@@ -47,9 +51,11 @@ class ShoppingListItem {
   latitude: number;
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

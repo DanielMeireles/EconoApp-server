@@ -25,6 +25,7 @@ class User {
   password: string;
 
   @Column()
+  @Exclude()
   avatar: string;
 
   @Expose({ name: 'avatar_url' })
@@ -44,9 +45,11 @@ class User {
   }
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

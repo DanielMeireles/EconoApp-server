@@ -32,6 +32,7 @@ shoppingListItemsRouter.put(
       date: Joi.date(),
       product_id: Joi.string().required(),
       shoppinglist_id: Joi.string().required(),
+      checked: Joi.boolean(),
       quantity: Joi.number(),
       value: Joi.number(),
       longitude: Joi.number(),

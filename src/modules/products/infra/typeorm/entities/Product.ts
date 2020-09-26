@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 
 import uploadConfig from '@config/upload';
 
@@ -24,12 +24,13 @@ class Product {
   description: string;
 
   @Column()
+  @Exclude()
   image: string;
 
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
     if (!this.image) {
-      return null;
+      return 'https://api.adorable.io/avatars/186/abott@adorable.png';
     }
 
     switch (uploadConfig.driver) {
@@ -43,9 +44,11 @@ class Product {
   }
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 

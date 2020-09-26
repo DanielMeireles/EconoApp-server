@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import uploadConfig from '@config/upload';
@@ -27,6 +27,7 @@ class ShoppingList {
   date: Date;
 
   @Column()
+  @Exclude()
   image: string;
 
   @Column()
@@ -53,9 +54,11 @@ class ShoppingList {
   }
 
   @CreateDateColumn()
+  @Exclude()
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 }
 
