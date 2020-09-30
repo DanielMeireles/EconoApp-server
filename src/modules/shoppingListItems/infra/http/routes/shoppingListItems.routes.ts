@@ -55,9 +55,9 @@ shoppingListItemsRouter.delete(
 );
 
 shoppingListItemsRouter.get(
-  '/findByShoppingListId/:shoppinglist_id',
+  '/findByShoppingListId',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.QUERY]: {
       shoppinglist_id: Joi.string().required(),
     },
   }),

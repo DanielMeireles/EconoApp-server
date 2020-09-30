@@ -7,13 +7,12 @@ import ShoppingListItem from '@modules/shoppingListItems/infra/typeorm/entities/
 
 class ShoppingListItemsByShoppingListIdController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { shoppinglist_id } = request.params;
     const listShoppingListItemsByShoppingListId = container.resolve(
       ListShoppingListItemsByShoppingListId,
     );
 
     const shoppingListItems = await listShoppingListItemsByShoppingListId.execute(
-      { shoppinglist_id },
+      { shoppinglist_id: request.query.shoppinglist_id as string },
     );
 
     return response.json(
