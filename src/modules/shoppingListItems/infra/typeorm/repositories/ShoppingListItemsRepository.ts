@@ -35,6 +35,7 @@ class ShoppingListItemsRepository implements IShoppingListItemsRepository {
     try {
       const shoppingListItems = await this.ormRepository.find({
         where: { shoppinglist_id },
+        relations: ['product'],
       });
 
       return shoppingListItems;
