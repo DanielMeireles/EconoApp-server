@@ -99,6 +99,18 @@ productsRouter.get(
 );
 
 productsRouter.get(
+  '/findByNameAndBrand',
+  celebrate({
+    [Segments.QUERY]: {
+      name: Joi.string().required(),
+      brand: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  productsByNameController.index,
+);
+
+productsRouter.get(
   '/findByBrand',
   celebrate({
     [Segments.QUERY]: {
