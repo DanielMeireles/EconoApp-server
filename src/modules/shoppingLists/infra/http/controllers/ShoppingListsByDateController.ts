@@ -8,11 +8,10 @@ import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/Shopping
 class ShoppingListsByDateController {
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { date } = request.params;
     const listShoppingLists = container.resolve(ListShoppingListsByDateService);
     const shoppingLists = await listShoppingLists.execute({
       user_id,
-      date: new Date(date),
+      date: new Date(request.query.date as string),
     });
 
     return response.json(

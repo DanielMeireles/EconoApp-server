@@ -8,9 +8,11 @@ import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/Shopping
 class ShoppingListsByNameController {
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { name } = request.params;
     const listShoppingLists = container.resolve(ListShoppingListsByNameService);
-    const shoppingLists = await listShoppingLists.execute({ user_id, name });
+    const shoppingLists = await listShoppingLists.execute({
+      user_id,
+      name: request.query.name as string,
+    });
 
     return response.json(
       classToClass(plainToClass(ShoppingList, shoppingLists)),
