@@ -7,9 +7,10 @@ import Product from '@modules/products/infra/typeorm/entities/Product';
 
 class ProductsByBrandController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { brand } = request.params;
     const listProducts = container.resolve(ListProductsByBrandService);
-    const products = await listProducts.execute({ brand });
+    const products = await listProducts.execute({
+      brand: request.query.brand as string,
+    });
 
     return response.json(classToClass(plainToClass(Product, products)));
   }
