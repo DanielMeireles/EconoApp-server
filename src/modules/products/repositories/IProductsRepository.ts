@@ -12,7 +12,9 @@ interface IProductsRepository {
   findById(data: IFindProductsByIdDTO): Promise<Product | undefined>;
   findByName(data: IFindProductsByNameDTO): Promise<Product[]>;
   findByBrand(data: IFindProductsByBrandDTO): Promise<Product[]>;
-  findByNameAndBrand(data: IFindProductsByNameAndBrandDTO): Promise<Product[]>;
+  findByNameAndBrand(
+    data: IFindProductsByNameAndBrandDTO,
+  ): Promise<Product | undefined>;
   findByDescription(data: IFindProductsByDescriptionDTO): Promise<Product[]>;
   create(data: ICreateProductDTO): Promise<Product>;
   delete(data: IDeleteProductDTO): Promise<void>;

@@ -33,9 +33,6 @@ class DeleteProductService {
     await this.cacheProvider.invalidate('products-list');
     await this.cacheProvider.invalidate(`products-name:${product.name}`);
     await this.cacheProvider.invalidate(`products-brand:${product.brand}`);
-    await this.cacheProvider.invalidate(
-      `products-name/brand:${product.name}/${product.brand}`,
-    );
   }
 }
 

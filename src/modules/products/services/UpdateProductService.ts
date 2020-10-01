@@ -44,7 +44,6 @@ class UpdateProductService {
     await this.cacheProvider.invalidate('products-list');
     await this.cacheProvider.invalidate(`products-name:${name}`);
     await this.cacheProvider.invalidate(`products-brand:${brand}`);
-    await this.cacheProvider.invalidate(`products-name/brand:${name}/${brand}`);
 
     return product;
   }

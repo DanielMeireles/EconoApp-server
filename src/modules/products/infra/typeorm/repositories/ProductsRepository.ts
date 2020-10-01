@@ -60,12 +60,12 @@ class ProductsRepository implements IProductsRepository {
   public async findByNameAndBrand({
     name,
     brand,
-  }: IFindProductsByNameAndBrandDTO): Promise<Product[]> {
-    const products = await this.ormRepository.find({
+  }: IFindProductsByNameAndBrandDTO): Promise<Product | undefined> {
+    const product = await this.ormRepository.findOne({
       where: { name, brand },
     });
 
-    return products;
+    return product;
   }
 
   public async findByDescription({

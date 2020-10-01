@@ -48,7 +48,7 @@ describe('ListProductsByNameAndBrAnd', () => {
       brand: product_1.brand,
     });
 
-    expect(products).toEqual([product_1]);
+    expect(products).toEqual(product_1);
   });
 
   it('should not be able to list the products from non-existing name and brand', async () => {

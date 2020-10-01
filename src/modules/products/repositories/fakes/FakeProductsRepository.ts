@@ -47,12 +47,12 @@ class FakeProductsRepository implements IProductsRepository {
   public async findByNameAndBrand({
     name,
     brand,
-  }: IFindProductsByNameAndBrandDTO): Promise<Product[]> {
-    const findProducts = this.products.filter(
+  }: IFindProductsByNameAndBrandDTO): Promise<Product | undefined> {
+    const findProduct = this.products.find(
       product => product.name === name && product.brand === brand,
     );
 
-    return findProducts;
+    return findProduct;
   }
 
   public async findByDescription({

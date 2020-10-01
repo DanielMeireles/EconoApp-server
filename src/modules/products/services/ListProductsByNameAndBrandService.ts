@@ -22,28 +22,17 @@ class ListProductsByNameAndBrandService {
   public async execute({
     name,
     brand,
-  }: IFindProductsByNameAndBrandDTO): Promise<Product[]> {
-    let products = await this.cacheProvider.recover<Product[]>(
-      `products-name/brand:${name}/${brand}`,
-    );
+  }: IFindProductsByNameAndBrandDTO): Promise<Product> {
+    const product = await this.productsRepository.findByNameAndBrand({
+      name,
+      brand,
+    });
 
-    if (!products) {
-      products = await this.productsRepository.findByNameAndBrand({
-        name,
-        brand,
-      });
-
-      if (products.length === 0) {
-        throw new AppError('Products not found');
-      }
-
-      await this.cacheProvider.save(
-        `products-name/brand:${name}/${brand}`,
-        products,
-      );
+    if (!product) {
+      throw new AppError('Products not found');
     }
 
-    return products;
+    return product;
   }
 }
 
