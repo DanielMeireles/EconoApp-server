@@ -7,6 +7,7 @@ import uploadConfig from '@config/upload';
 import ProductsController from '@modules/products/infra/http/controllers/ProductsController';
 import ProductsByIdController from '@modules/products/infra/http/controllers/ProductsByIdController';
 import ProductsByNameController from '@modules/products/infra/http/controllers/ProductsByNameController';
+import ProductsByNameAndBrandController from '@modules/products/infra/http/controllers/ProductsByNameAndBrandController';
 import ProductsByBrandController from '@modules/products/infra/http/controllers/ProductsByBrandController';
 import ProductsByDescriptionController from '@modules/products/infra/http/controllers/ProductsByDescriptionController';
 import ProductImageController from '@modules/products/infra/http/controllers/ProductImageController';
@@ -17,6 +18,7 @@ const productsRouter = Router();
 const productsController = new ProductsController();
 const productsByIdController = new ProductsByIdController();
 const productsByNameController = new ProductsByNameController();
+const productsByNameAndBrandController = new ProductsByNameAndBrandController();
 const productsByBrandController = new ProductsByBrandController();
 const productsByDescriptionController = new ProductsByDescriptionController();
 const productImageController = new ProductImageController();
@@ -107,7 +109,7 @@ productsRouter.get(
     },
   }),
   ensureAuthenticated,
-  productsByNameController.index,
+  productsByNameAndBrandController.index,
 );
 
 productsRouter.get(
