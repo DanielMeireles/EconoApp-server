@@ -40,12 +40,12 @@ export default class CreateShoppingListItem1600014645018
           {
             name: 'quantity',
             type: 'double precision',
-            isNullable: true,
+            default: 0,
           },
           {
             name: 'value',
             type: 'double precision',
-            isNullable: true,
+            default: 0,
           },
           {
             name: 'longitude',
