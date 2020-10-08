@@ -18,6 +18,18 @@ class LocationsRepository implements ILocationsRepository {
     maxDistance,
   }: IFindLocationsDTO): Promise<ILocationDTO[]> {
     try {
+      const startDate = new Date(date);
+      startDate.setHours(0, 0, 0, 0);
+
+      const endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 1);
+
+      const minLatitude = latitude - maxDistance;
+      const maxLatitude = latitude + maxDistance;
+
+      const minLongitude = longitude - maxDistance;
+      const maxLongitude = longitude + maxDistance;
+
       const locations: ILocationDTO[] = await getConnection()
         .createQueryBuilder()
         .addSelect('p.id', 'id')
@@ -30,15 +42,18 @@ class LocationsRepository implements ILocationsRepository {
         .from(ShoppingListItem, 's')
         .innerJoin(Product, 'p', 'p.id = s.product_id')
         .where('s.product_id = :product_id', { product_id })
-        .andWhere('s.date = :date', { date })
-        .andWhere(
-          's.latitude between (:latitude - :maxDistance) and (:latitude + :maxDistance)',
-          { latitude, maxDistance },
-        )
-        .andWhere(
-          's.longitude between (:longitude - :maxDistance) and (:longitude + :maxDistance)',
-          { longitude, maxDistance },
-        )
+        .andWhere('s.date between :startDate and :endDate', {
+          startDate,
+          endDate,
+        })
+        .andWhere('s.latitude between :minLatitude and :maxLatitude', {
+          minLatitude,
+          maxLatitude,
+        })
+        .andWhere('s.longitude between :minLongitude and :maxLongitude', {
+          minLongitude,
+          maxLongitude,
+        })
         .getRawMany();
 
       return locations;

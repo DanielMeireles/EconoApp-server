@@ -3,16 +3,26 @@ import { container } from 'tsyringe';
 
 import ListLocations from '@modules/locations/services/ListLocationsService';
 
+interface IRequest extends Request {
+  query: {
+    product_id: string;
+    date: string;
+    latitude: string;
+    longitude: string;
+    maxDistance: string;
+  };
+}
+
 class LocationsController {
-  public async index(request: Request, response: Response): Promise<Response> {
+  public async index(request: IRequest, response: Response): Promise<Response> {
     const listLocations = container.resolve(ListLocations);
 
     const locations = await listLocations.execute({
-      product_id: request.query.shoppinglist_id as string,
-      date: (request.query.date as unknown) as Date,
-      latitude: (request.query.latitude as unknown) as number,
-      longitude: (request.query.longitude as unknown) as number,
-      maxDistance: (request.query.maxDistance as unknown) as number,
+      product_id: request.query.product_id,
+      date: new Date(request.query.date),
+      latitude: Number(request.query.latitude),
+      longitude: Number(request.query.longitude),
+      maxDistance: Number(request.query.maxDistance),
     });
 
     return response.json(locations);
