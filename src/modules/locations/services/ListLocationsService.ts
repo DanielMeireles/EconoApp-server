@@ -14,14 +14,14 @@ class ListLocationsService {
   ) {}
 
   public async execute({
-    product_id,
+    shopping_list_id,
     date,
     latitude,
     longitude,
     maxDistance,
   }: IFindLocationsDTO): Promise<ILocationDTO[]> {
     const locations = await this.locationsRepository.findLocations({
-      product_id,
+      shopping_list_id,
       date,
       latitude,
       longitude,

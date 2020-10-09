@@ -11,7 +11,7 @@ import ILocationDTO from '@modules/locations/dtos/ILocationDTO';
 
 class LocationsRepository implements ILocationsRepository {
   public async findLocations({
-    product_id,
+    shopping_list_id,
     date,
     latitude,
     longitude,
@@ -32,25 +32,27 @@ class LocationsRepository implements ILocationsRepository {
 
       const locations: ILocationDTO[] = await getConnection()
         .createQueryBuilder()
+        .distinct()
         .addSelect('p.id', 'id')
         .addSelect('p.name', 'name')
         .addSelect('p.brand', 'brand')
-        .addSelect('s.date', 'date')
-        .addSelect('s.latitude', 'latitude')
-        .addSelect('s.longitude', 'longitude')
-        .addSelect('s.value', 'value')
+        .addSelect('s_aux.date', 'date')
+        .addSelect('s_aux.latitude', 'latitude')
+        .addSelect('s_aux.longitude', 'longitude')
+        .addSelect('s_aux.value', 'value')
         .from(ShoppingListItem, 's')
+        .innerJoin(ShoppingListItem, 's_aux', 's_aux.product_id = s.product_id')
         .innerJoin(Product, 'p', 'p.id = s.product_id')
-        .where('s.product_id = :product_id', { product_id })
-        .andWhere('s.date between :startDate and :endDate', {
+        .where('s.shoppinglist_id = :shopping_list_id', { shopping_list_id })
+        .andWhere('s_aux.date between :startDate and :endDate', {
           startDate,
           endDate,
         })
-        .andWhere('s.latitude between :minLatitude and :maxLatitude', {
+        .andWhere('s_aux.latitude between :minLatitude and :maxLatitude', {
           minLatitude,
           maxLatitude,
         })
-        .andWhere('s.longitude between :minLongitude and :maxLongitude', {
+        .andWhere('s_aux.longitude between :minLongitude and :maxLongitude', {
           minLongitude,
           maxLongitude,
         })

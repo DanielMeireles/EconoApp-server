@@ -5,7 +5,7 @@ import ListLocations from '@modules/locations/services/ListLocationsService';
 
 interface IRequest extends Request {
   query: {
-    product_id: string;
+    shopping_list_id: string;
     date: string;
     latitude: string;
     longitude: string;
@@ -18,7 +18,7 @@ class LocationsController {
     const listLocations = container.resolve(ListLocations);
 
     const locations = await listLocations.execute({
-      product_id: request.query.product_id,
+      shopping_list_id: request.query.shopping_list_id,
       date: new Date(request.query.date),
       latitude: Number(request.query.latitude),
       longitude: Number(request.query.longitude),

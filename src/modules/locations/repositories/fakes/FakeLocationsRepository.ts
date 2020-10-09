@@ -8,7 +8,7 @@ class FakeLocationsRepository implements ILocationsRepository {
   private locations: ILocationDTO[] = [];
 
   public async findLocations({
-    product_id,
+    shopping_list_id,
     date,
     latitude,
     longitude,
@@ -16,7 +16,7 @@ class FakeLocationsRepository implements ILocationsRepository {
   }: IFindLocationsDTO): Promise<ILocationDTO[]> {
     const findLocations = this.locations.filter(
       location =>
-        location.id === product_id &&
+        location.id === shopping_list_id &&
         location.date === date &&
         location.latitude >= latitude - maxDistance &&
         location.latitude <= latitude + maxDistance &&

@@ -1,5 +1,5 @@
 interface IFindLocationsDTO {
-  product_id: string;
+  shopping_list_id: string;
   date: Date;
   latitude: number;
   longitude: number;

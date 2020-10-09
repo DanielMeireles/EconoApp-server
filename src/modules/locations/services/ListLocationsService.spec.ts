@@ -34,7 +34,7 @@ describe('ListLocations', () => {
     } as ILocationDTO);
 
     const locations = await listLocations.execute({
-      product_id: location.id,
+      shopping_list_id: location.id,
       date,
       latitude: location.latitude,
       longitude: location.longitude,

@@ -14,7 +14,7 @@ locationsRouter.get(
   '/findLocations',
   celebrate({
     [Segments.QUERY]: {
-      product_id: Joi.string().required(),
+      shopping_list_id: Joi.string().required(),
       date: Joi.date().required(),
       latitude: Joi.number().required(),
       longitude: Joi.number().required(),
