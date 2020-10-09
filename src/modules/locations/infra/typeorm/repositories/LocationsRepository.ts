@@ -22,7 +22,7 @@ class LocationsRepository implements ILocationsRepository {
       startDate.setHours(0, 0, 0, 0);
 
       const endDate = new Date(startDate);
-      endDate.setDate(startDate.getDate() + 1);
+      endDate.setDate(startDate.getDate() + 2);
 
       const minLatitude = latitude - maxDistance;
       const maxLatitude = latitude + maxDistance;
@@ -38,7 +38,7 @@ class LocationsRepository implements ILocationsRepository {
         .addSelect('s.date', 'date')
         .addSelect('s.latitude', 'latitude')
         .addSelect('s.longitude', 'longitude')
-        .addSelect('s.value', 'values')
+        .addSelect('s.value', 'value')
         .from(ShoppingListItem, 's')
         .innerJoin(Product, 'p', 'p.id = s.product_id')
         .where('s.product_id = :product_id', { product_id })
