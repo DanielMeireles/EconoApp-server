@@ -5,7 +5,7 @@ declare namespace NodeJS {
     NODE_ENV: string;
     APP_SECRET: string;
     APP_EXPIRES_IN: string;
-    APP_PORT: string;
+    PORT: string;
     MAIL_DRIVER: string;
     MAIL_FROM: string;
     MAIL_NAME: string;
