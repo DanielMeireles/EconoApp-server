@@ -5,6 +5,10 @@
   "repository": "https://github.com/DanielMeireles/EconoApp-server",
   "author": "DanielMeireles <daniel.meireles@outlook.com>",
   "license": "MIT",
+  "engines": {
+    "node": "14.12.0",
+    "npm": "6.14.7"
+  },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
     "@types/bcryptjs": "^2.4.2",
