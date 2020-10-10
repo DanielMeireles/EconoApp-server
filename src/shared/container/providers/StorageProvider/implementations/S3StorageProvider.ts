@@ -28,7 +28,7 @@ class S3StorageProvider implements IStorageProvider {
 
     await this.client
       .putObject({
-        Bucket: uploadConfig.config.aws.bucket,
+        Bucket: uploadConfig.config.aws.bucket as string,
         Key: file,
         ACL: 'public-read',
         Body: fileContent,
@@ -44,7 +44,7 @@ class S3StorageProvider implements IStorageProvider {
   public async deleteFile(file: string): Promise<void> {
     await this.client
       .deleteObject({
-        Bucket: uploadConfig.config.aws.bucket,
+        Bucket: uploadConfig.config.aws.bucket as string,
         Key: file,
       })
       .promise();
