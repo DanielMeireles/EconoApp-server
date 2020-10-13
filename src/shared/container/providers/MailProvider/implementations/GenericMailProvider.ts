@@ -6,6 +6,7 @@ import mailConfig from '@config/mail';
 import ISendMailDto from '@shared/container/providers/MailProvider/dtos/ISendMailDTO';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 @injectable()
 export default class GenericMailProvider implements IMailProvider {
@@ -26,7 +27,7 @@ export default class GenericMailProvider implements IMailProvider {
         user: auth.user,
         pass: auth.pass,
       },
-    });
+    } as SMTPTransport.Options);
   }
 
   public async sendMail({
