@@ -9,6 +9,12 @@ declare namespace NodeJS {
     MAIL_DRIVER: string;
     MAIL_FROM: string;
     MAIL_NAME: string;
+    MAIL_HOST: string;
+    MAIL_PORT: number;
+    MAIL_SSL: boolean;
+    MAIL_TLS: boolean;
+    MAIL_USER: string;
+    MAIL_PASSWORD: string;
     STORAGE_DRIVER: string;
     POSTGRES_HOST: string;
     POSTGRES_PORT: string;
