@@ -7,6 +7,7 @@ import DeleteShoppingListService from '@modules/shoppingLists/services/DeleteSho
 import UpdateShoppingListService from '@modules/shoppingLists/services/UpdateShoppingListService';
 import ListShoppingListsService from '@modules/shoppingLists/services/ListShoppingListsService';
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
+import { stringType } from 'aws-sdk/clients/iam';
 
 class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -55,7 +56,7 @@ class ProductsController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as stringType;
+    const id = request.query.id as string;
     const user_id = request.user.id;
 
     const deleteShoppingListService = container.resolve(
