@@ -7,7 +7,6 @@ import DeleteShoppingListService from '@modules/shoppingLists/services/DeleteSho
 import UpdateShoppingListService from '@modules/shoppingLists/services/UpdateShoppingListService';
 import ListShoppingListsService from '@modules/shoppingLists/services/ListShoppingListsService';
 import ShoppingList from '@modules/shoppingLists/infra/typeorm/entities/ShoppingList';
-import { stringType } from 'aws-sdk/clients/iam';
 
 class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
