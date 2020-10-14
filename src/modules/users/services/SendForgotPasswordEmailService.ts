@@ -38,24 +38,20 @@ class SendForgotPasswordEmailSercice {
       'forgot_password.hbs',
     );
 
-    try {
-      await this.mailProvider.sendMail({
-        to: {
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[EconoApp] Recuperação de senha',
+      templateData: {
+        file: forgotPasswordTempalte,
+        variables: {
           name: user.name,
-          email: user.email,
+          link: `${process.env.APP_WEB_URL}/reset-password?token=${token}`,
         },
-        subject: '[EconoApp] Recuperação de senha',
-        templateData: {
-          file: forgotPasswordTempalte,
-          variables: {
-            name: user.name,
-            link: `${process.env.APP_WEB_URL}/reset-password?token=${token}`,
-          },
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
+      },
+    });
   }
 }
 
