@@ -55,7 +55,7 @@ class ProductsController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body;
+    const id = request.query.id as stringType;
     const user_id = request.user.id;
 
     const deleteShoppingListService = container.resolve(

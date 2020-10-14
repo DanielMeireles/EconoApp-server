@@ -54,7 +54,7 @@ shoppingListsRouter.put(
 shoppingListsRouter.delete(
   '/',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       id: Joi.string().required(),
     },
   }),
