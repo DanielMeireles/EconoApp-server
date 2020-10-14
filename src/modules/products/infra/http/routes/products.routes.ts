@@ -42,7 +42,7 @@ productsRouter.post(
 productsRouter.delete(
   '/',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       id: Joi.string().required(),
     },
   }),
