@@ -8,6 +8,7 @@ declare namespace NodeJS {
     PORT: string;
     DEFAULT_AVATAR: string;
     DEFAULT_PRODUCT_IMAGE: string;
+    DEFAULT_SHOPPING_LIST_IMAGE: string;
     MAIL_DRIVER: string;
     MAIL_FROM: string;
     MAIL_NAME: string;

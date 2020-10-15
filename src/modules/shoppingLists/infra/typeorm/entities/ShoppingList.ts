@@ -40,7 +40,7 @@ class ShoppingList {
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
     if (!this.image) {
-      return 'https://api.adorable.io/avatars/72/abott@adorable.png';
+      return process.env.DEFAULT_SHOPPING_LIST_IMAGE;
     }
 
     switch (uploadConfig.driver) {
