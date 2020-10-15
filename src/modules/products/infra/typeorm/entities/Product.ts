@@ -30,7 +30,7 @@ class Product {
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
     if (!this.image) {
-      return 'https://api.adorable.io/avatars/186/abott@adorable.png';
+      return process.env.DEFAULT_PRODUCT_IMAGE;
     }
 
     switch (uploadConfig.driver) {

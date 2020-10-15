@@ -7,6 +7,7 @@ declare namespace NodeJS {
     APP_EXPIRES_IN: string;
     PORT: string;
     DEFAULT_AVATAR: string;
+    DEFAULT_PRODUCT_IMAGE: string;
     MAIL_DRIVER: string;
     MAIL_FROM: string;
     MAIL_NAME: string;
