@@ -31,7 +31,7 @@ class User {
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
     if (!this.avatar) {
-      return 'https://api.adorable.io/avatars/186/abott@adorable.png';
+      return process.env.DEFAULT_AVATAR;
     }
 
     switch (uploadConfig.driver) {
