@@ -37,6 +37,7 @@ class LocationsRepository implements ILocationsRepository {
         .addSelect('p.name', 'name')
         .addSelect('p.brand', 'brand')
         .addSelect('s_aux.date', 'date')
+        .addSelect('p.image', 'image')
         .addSelect('s_aux.latitude', 'latitude')
         .addSelect('s_aux.longitude', 'longitude')
         .addSelect('s_aux.value', 'value')
