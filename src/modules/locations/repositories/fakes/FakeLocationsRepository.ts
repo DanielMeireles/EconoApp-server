@@ -16,7 +16,7 @@ class FakeLocationsRepository implements ILocationsRepository {
   }: IFindLocationsDTO): Promise<ILocationDTO[]> {
     const findLocations = this.locations.filter(
       location =>
-        location.id === shopping_list_id &&
+        location.products[0].id === shopping_list_id &&
         location.date === date &&
         location.latitude >= latitude - maxDistance &&
         location.latitude <= latitude + maxDistance &&
@@ -28,23 +28,24 @@ class FakeLocationsRepository implements ILocationsRepository {
   }
 
   public async create({
-    name,
-    brand,
     date,
     latitude,
     longitude,
-    value,
+    products,
   }: ILocationDTO): Promise<ILocationDTO> {
     const location = {} as ILocationDTO;
 
+    products.map(async product => {
+      Object.assign(product, {
+        id: uuid(),
+      });
+    });
+
     Object.assign(location, {
-      id: uuid(),
-      name,
-      brand,
       date,
       latitude,
       longitude,
-      value,
+      products,
     });
 
     this.locations.push(location);

@@ -16,31 +16,33 @@ describe('ListLocations', () => {
     const date = new Date();
 
     const location = await fakeLocationsRepository.create({
-      name: 'Name 1',
-      brand: 'Brand 1',
       date,
       latitude: 0.001,
       longitude: 0.001,
-      value: 10.0,
+      products: [
+        {
+          name: 'Name 1',
+          brand: 'Brand 1',
+          value: 10.0,
+        },
+      ],
     } as ILocationDTO);
 
     await fakeLocationsRepository.create({
-      name: 'Name 1',
-      brand: 'Brand 1',
       date,
       latitude: 100.001,
       longitude: 100.001,
-      value: 10.0,
+      products: [{ name: 'Name 1', brand: 'Brand 1', value: 10.0 }],
     } as ILocationDTO);
 
     const locations = await listLocations.execute({
-      shopping_list_id: location.id,
+      shopping_list_id: location.products[0].id,
       date,
       latitude: location.latitude,
       longitude: location.longitude,
       maxDistance: 10,
     });
 
-    expect(locations[0].id).toEqual(location.id);
+    expect(locations[0].products[0].id).toEqual(location.products[0].id);
   });
 });

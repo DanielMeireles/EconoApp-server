@@ -9,6 +9,16 @@ import ILocationsRepository from '@modules/locations/repositories/ILocationsRepo
 import IFindLocationsDTO from '@modules/locations/dtos/IFindLocationsDTO';
 import ILocationDTO from '@modules/locations/dtos/ILocationDTO';
 
+interface ILocation {
+  id: string;
+  name: string;
+  brand: string;
+  date: Date;
+  latitude: number;
+  longitude: number;
+  value: number;
+}
+
 class LocationsRepository implements ILocationsRepository {
   public async findLocations({
     shopping_list_id,
@@ -30,7 +40,7 @@ class LocationsRepository implements ILocationsRepository {
       const minLongitude = longitude - maxDistance;
       const maxLongitude = longitude + maxDistance;
 
-      const locations: ILocationDTO[] = await getConnection()
+      const locationsAux: ILocation[] = await getConnection()
         .createQueryBuilder()
         .distinct()
         .addSelect('p.id', 'id')
@@ -57,6 +67,38 @@ class LocationsRepository implements ILocationsRepository {
           maxLongitude,
         })
         .getRawMany();
+
+      const locations: ILocationDTO[] = [];
+
+      locationsAux.map(async locationAux => {
+        const index = locations.findIndex(
+          location =>
+            location.latitude === locationAux.latitude &&
+            location.longitude === locationAux.longitude,
+        );
+        if (index >= 0) {
+          locations[index].products.push({
+            id: locationAux.id,
+            name: locationAux.name,
+            brand: locationAux.brand,
+            value: locationAux.value,
+          });
+        } else {
+          locations.push({
+            date: locationAux.date,
+            latitude: locationAux.latitude,
+            longitude: locationAux.longitude,
+            products: [
+              {
+                id: locationAux.id,
+                name: locationAux.name,
+                brand: locationAux.brand,
+                value: locationAux.value,
+              },
+            ],
+          });
+        }
+      });
 
       return locations;
     } catch {
