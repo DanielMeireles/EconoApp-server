@@ -3,7 +3,6 @@ interface ILocationDTO {
   name: string;
   brand: string;
   date: Date;
-  image: string;
   latitude: number;
   longitude: number;
   value: number;
